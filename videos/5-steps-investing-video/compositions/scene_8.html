@@ -1,0 +1,347 @@
+<template id="scene_8-template">
+  <div id="root" class="scene_8-root" data-composition-id="scene_8" data-width="1920" data-height="1080" data-duration="5.184" style="position:relative; width:1920px; height:1080px; overflow:hidden;">
+    <style>
+      #root {
+        background: var(--surface-paper);
+        font-family: var(--font-body);
+      }
+      #root *,
+      #root *::before,
+      #root *::after {
+        box-sizing: border-box;
+      }
+
+      /* Ambient paper grain (decorative, full-bleed). */
+      .s8-paper-grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.35;
+        mix-blend-mode: multiply;
+        background-image: var(--paper-grain);
+      }
+
+      /* Content stage — relative, above grain. Centered column. */
+      .s8-stage {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        padding: 0 120px;
+      }
+
+      /* Hero row: tree + headline side by side */
+      .s8-hero-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 64px;
+      }
+
+      /* Tree illustration */
+      .s8-tree {
+        width: 300px;
+        height: 360px;
+        flex: 0 0 auto;
+      }
+      .s8-tree-stem {
+        fill: none;
+        stroke: var(--brand-tertiary);
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .s8-tree-canopy {
+        fill: var(--brand-secondary);
+        stroke: var(--brand-secondary);
+        stroke-width: 2;
+      }
+      .s8-tree-leaf {
+        fill: var(--deco-2);
+      }
+
+      /* Depth-stacked hero headline */
+      .s8-headline {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .s8-depth-line {
+        position: relative;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 150px;
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+        white-space: nowrap;
+      }
+      /* Each word lives in its own positioning context so depth ghosts stack behind it. */
+      .s8-word-wrap {
+        position: relative;
+        display: inline-block;
+      }
+      .s8-word {
+        display: inline-block;
+        transform-origin: 50% 50%;
+        color: var(--ink);
+        position: relative;
+        z-index: 10;
+        will-change: transform, text-shadow;
+      }
+      .s8-word.s8-accent {
+        color: var(--brand-primary);
+      }
+      .s8-ghost {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: none;
+        color: var(--brand-secondary);
+        white-space: nowrap;
+      }
+
+      /* Small disclaimer — DM Mono, low contrast, footer chrome. */
+      .s8-disclaimer {
+        position: relative;
+        z-index: 2;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 1.2;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-tertiary);
+        opacity: 0.65;
+        text-align: center;
+      }
+    </style>
+
+    <div class="s8-paper-grain" aria-hidden="true"></div>
+
+    <div class="s8-stage" data-layout-role="primary" data-layout-act="resolve">
+      <div class="s8-hero-row">
+        <!-- Tree — proof of the growth arc. svg-path-draw on the stem. -->
+        <svg class="s8-tree" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg">
+          <path class="s8-tree-stem" id="s8-stem" d="M 150 360 L 150 200 M 150 250 L 100 210 M 150 240 L 200 205" />
+          <ellipse class="s8-tree-canopy" cx="150" cy="140" rx="120" ry="100" />
+          <ellipse class="s8-tree-canopy" cx="80" cy="170" rx="60" ry="55" />
+          <ellipse class="s8-tree-canopy" cx="220" cy="170" rx="60" ry="55" />
+          <circle class="s8-tree-leaf" cx="120" cy="120" r="10" />
+          <circle class="s8-tree-leaf" cx="185" cy="110" r="9" />
+          <circle class="s8-tree-leaf" cx="150" cy="170" r="8" />
+        </svg>
+
+        <!-- Hero headline: "Start today." — depth-layered + asr-keyword-glow on "today". -->
+        <div class="s8-headline">
+          <div class="s8-depth-line">
+            <span class="s8-word-wrap">
+              <span class="s8-ghost" aria-hidden="true">Start</span>
+              <span class="s8-word" data-word="start">Start</span>
+            </span>
+          </div>
+          <div class="s8-depth-line">
+            <span class="s8-word-wrap">
+              <span class="s8-ghost" aria-hidden="true">today.</span>
+              <span class="s8-word s8-accent" data-word="today">today.</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- REQUIRED disclaimer — kept above Foreground max y, low-contrast small print. -->
+      <div class="s8-disclaimer" id="s8-disclaimer">Educational content — not financial advice.</div>
+    </div>
+
+    <script>
+      const EASE = {
+        entry: "power2.out",
+        emphasis: "power3.out",
+        exit: "power2.in",
+        drift: "sine.inOut",
+      };
+      const DUR = {
+        snap: 0.18,
+        med: 0.5,
+        slow: 0.95,
+      };
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const SCENE_DURATION = 5.184;
+
+      // ---- 3d-text-depth-layers: build N offset ghost copies behind each word ----
+      const LAYER_COUNT = 4;
+      const OFFSET_X = 3;
+      const OFFSET_Y = 3;
+      const BACK_ALPHA_MAX = 0.5;
+      const BACK_ALPHA_STEP = 0.12;
+      const BACK_ALPHA_MIN = 0.14;
+
+      const ghostTemplates = Array.from(document.querySelectorAll(".s8-ghost"));
+      const depthGhosts = []; // {el, i, finalAlpha}
+      ghostTemplates.forEach((tmpl) => {
+        const wrap = tmpl.parentElement;
+        // back-to-front: i = LAYER_COUNT-1 .. 1 (front glyph is the real .s8-word)
+        for (let i = LAYER_COUNT - 1; i >= 1; i--) {
+          const g = tmpl.cloneNode(true);
+          const alpha = Math.max(BACK_ALPHA_MAX - (i - 1) * BACK_ALPHA_STEP, BACK_ALPHA_MIN);
+          g.style.color = "var(--brand-secondary)";
+          g.style.opacity = "0";
+          g.dataset.layer = String(i);
+          g.dataset.alpha = String(alpha);
+          g.style.transform = "translate(0px, 0px)";
+          wrap.insertBefore(g, tmpl);
+          depthGhosts.push({ el: g, i, finalAlpha: alpha });
+        }
+        tmpl.remove(); // remove the original placeholder ghost
+      });
+
+      // Initial hidden states via gsap.set (seek-safe)
+      gsap.set(".s8-word", { opacity: 0, y: 18 });
+      gsap.set(".s8-tree", { opacity: 0, y: 20, scale: 0.96, transformOrigin: "50% 100%" });
+      gsap.set("#s8-disclaimer", { opacity: 0 });
+
+      // svg-path-draw: stem strokes drawn in
+      const stemPaths = document.querySelectorAll("#s8-stem");
+      stemPaths.forEach((p) => {
+        const len = p.getTotalLength() * 1.05;
+        p.style.strokeDasharray = String(len);
+        p.style.strokeDashoffset = String(len);
+      });
+
+      // ----- Choreography -----
+      // Stillness-before-climax: held beat on the tree before "Start today." pins in.
+      const TREE_START = 0.25;
+      const STEM_DRAW_START = 0.45;
+      const STEM_DRAW_DUR = 0.9;
+      const HEADLINE_START = 1.05; // after the held beat (~0.6s) on the tree
+
+      // Tree fades up + settles
+      tl.fromTo(
+        ".s8-tree",
+        { opacity: 0, y: 20, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: DUR.slow, ease: EASE.entry },
+        TREE_START,
+      );
+
+      // svg-path-draw — light stem strokes closing the growth arc
+      tl.to(
+        "#s8-stem",
+        { strokeDashoffset: 0, duration: STEM_DRAW_DUR, ease: EASE.entry },
+        STEM_DRAW_START,
+      );
+
+      // Headline words pin in (display words)
+      tl.fromTo(
+        ".s8-word",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: DUR.med, ease: EASE.emphasis, stagger: 0.12 },
+        HEADLINE_START,
+      );
+
+      // 3d-text-depth-layers: ghosts fade in + grow their offset (depth builds)
+      depthGhosts.forEach(({ el, i, finalAlpha }) => {
+        tl.fromTo(
+          el,
+          { opacity: 0 },
+          { opacity: finalAlpha, duration: 0.45, ease: "power2.out" },
+          HEADLINE_START + 0.08 + (LAYER_COUNT - 1 - i) * 0.06,
+        );
+      });
+      const depthState = { p: 0 };
+      tl.to(
+        depthState,
+        {
+          p: 1,
+          duration: 0.6,
+          ease: "power2.out",
+          onUpdate: () => {
+            depthGhosts.forEach(({ el, i }) => {
+              const x = i * OFFSET_X * depthState.p;
+              const y = i * OFFSET_Y * depthState.p;
+              el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+          },
+        },
+        HEADLINE_START + 0.1,
+      );
+
+      // ----- asr-keyword-glow: lift "today" on the narration -----
+      const ATTACK_DUR = 0.18;
+      const RELEASE = 0.4;
+      const REST_LEVEL = 0.22;
+      const MAX_BLUR = 26;
+      const MAX_SCALE_BOOST = 0.09;
+      const GLOW_RGB = "224, 162, 59"; // brand-primary amber
+
+      const TIMINGS = {
+        start: { start: 1.15, end: 1.55 },
+        today: { start: 1.85, end: 2.85 }, // brand word — longer sustain
+      };
+
+      function envelope(time, start, end) {
+        const releaseEnd = end + RELEASE;
+        if (time < start) return 0;
+        if (time < end) return Math.min((time - start) / ATTACK_DUR, 1);
+        if (time < releaseEnd) {
+          const decay = (time - end) / RELEASE;
+          return 1 - decay * (1 - REST_LEVEL);
+        }
+        return REST_LEVEL;
+      }
+
+      const glowWords = document.querySelectorAll(".s8-word");
+      const driver = { t: 0 };
+      tl.to(
+        driver,
+        {
+          t: SCENE_DURATION,
+          duration: SCENE_DURATION,
+          ease: "none",
+          onUpdate: () => {
+            glowWords.forEach((el) => {
+              const key = el.dataset.word;
+              const timing = TIMINGS[key];
+              if (!timing) return;
+              const env = envelope(driver.t, timing.start, timing.end);
+              const blur = MAX_BLUR * env;
+              const scale = 1 + MAX_SCALE_BOOST * env;
+              const alpha = 0.15 + env * 0.85;
+              el.style.textShadow = `0 0 ${blur}px rgba(${GLOW_RGB}, ${alpha})`;
+              // preserve the entry y already applied; only modulate scale here
+              el.style.scale = String(scale);
+            });
+          },
+        },
+        0,
+      );
+
+      // Gentle idle drift on the tree (ambient floor) — holds through the final frame.
+      tl.to(
+        ".s8-tree",
+        { y: -4, duration: 2.6, ease: EASE.drift, yoyo: true, repeat: 1 },
+        2.0,
+      );
+
+      // Disclaimer fades up at the very bottom, low-contrast.
+      tl.fromTo(
+        "#s8-disclaimer",
+        { opacity: 0 },
+        { opacity: 0.65, duration: DUR.slow, ease: EASE.entry },
+        2.4,
+      );
+
+      window.__timelines["scene_8"] = tl;
+    </script>
+  </div>
+</template>

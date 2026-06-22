@@ -1,0 +1,72 @@
+[
+  {
+    "text": "The",
+    "start": 0.05,
+    "end": 0.303
+  },
+  {
+    "text": "best",
+    "start": 0.303,
+    "end": 0.64
+  },
+  {
+    "text": "time",
+    "start": 0.64,
+    "end": 0.977
+  },
+  {
+    "text": "to",
+    "start": 0.977,
+    "end": 1.145
+  },
+  {
+    "text": "start",
+    "start": 1.145,
+    "end": 1.566
+  },
+  {
+    "text": "was",
+    "start": 1.566,
+    "end": 1.819
+  },
+  {
+    "text": "yesterday.",
+    "start": 1.819,
+    "end": 2.577
+  },
+  {
+    "text": "The",
+    "start": 2.577,
+    "end": 2.83
+  },
+  {
+    "text": "second",
+    "start": 2.83,
+    "end": 3.335
+  },
+  {
+    "text": "best",
+    "start": 3.335,
+    "end": 3.672
+  },
+  {
+    "text": "is",
+    "start": 3.672,
+    "end": 3.841
+  },
+  {
+    "text": "today.",
+    "start": 3.841,
+    "end": 4.262
+  },
+  {
+    "text": "Start",
+    "start": 4.262,
+    "end": 4.683
+  },
+  {
+    "text": "today.",
+    "start": 4.683,
+    "end": 5.104
+  }
+]

@@ -1,0 +1,1348 @@
+{
+  "total_duration_s": 45.525,
+  "width": 1920,
+  "height": 1080,
+  "source_word_count": 117,
+  "cleaned_word_count": 114,
+  "groups": [
+    {
+      "id": "caption-group-0",
+      "scene_id": "scene_1",
+      "surface": null,
+      "start": 0.05,
+      "end": 0.495,
+      "text": "Want to",
+      "words": [
+        {
+          "id": "caption-word-0-0",
+          "text": "Want",
+          "start": 0.05,
+          "end": 0.346,
+          "classes": []
+        },
+        {
+          "id": "caption-word-0-1",
+          "text": "to",
+          "start": 0.346,
+          "end": 0.495,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-1",
+      "scene_id": "scene_1",
+      "surface": null,
+      "start": 0.495,
+      "end": 2.051,
+      "text": "start investing but don't",
+      "words": [
+        {
+          "id": "caption-word-1-0",
+          "text": "start",
+          "start": 0.495,
+          "end": 0.865,
+          "classes": []
+        },
+        {
+          "id": "caption-word-1-1",
+          "text": "investing",
+          "start": 0.865,
+          "end": 1.532,
+          "classes": []
+        },
+        {
+          "id": "caption-word-1-2",
+          "text": "but",
+          "start": 1.532,
+          "end": 1.755,
+          "classes": []
+        },
+        {
+          "id": "caption-word-1-3",
+          "text": "don't",
+          "start": 1.755,
+          "end": 2.051,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-2",
+      "scene_id": "scene_1",
+      "surface": null,
+      "start": 2.051,
+      "end": 2.644,
+      "text": "know step",
+      "words": [
+        {
+          "id": "caption-word-2-0",
+          "text": "know",
+          "start": 2.051,
+          "end": 2.348,
+          "classes": []
+        },
+        {
+          "id": "caption-word-2-1",
+          "text": "step",
+          "start": 2.348,
+          "end": 2.644,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-3",
+      "scene_id": "scene_1",
+      "surface": null,
+      "start": 2.644,
+      "end": 2.866,
+      "text": "one?",
+      "words": [
+        {
+          "id": "caption-word-3-0",
+          "text": "one?",
+          "start": 2.644,
+          "end": 2.866,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-4",
+      "scene_id": "scene_1",
+      "surface": null,
+      "start": 2.866,
+      "end": 3.385,
+      "text": "Here are",
+      "words": [
+        {
+          "id": "caption-word-4-0",
+          "text": "Here",
+          "start": 2.866,
+          "end": 3.163,
+          "classes": []
+        },
+        {
+          "id": "caption-word-4-1",
+          "text": "are",
+          "start": 3.163,
+          "end": 3.385,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-5",
+      "scene_id": "scene_1",
+      "surface": null,
+      "start": 3.385,
+      "end": 4.052,
+      "text": "five moves",
+      "words": [
+        {
+          "id": "caption-word-5-0",
+          "text": "five",
+          "start": 3.385,
+          "end": 3.682,
+          "classes": []
+        },
+        {
+          "id": "caption-word-5-1",
+          "text": "moves",
+          "start": 3.682,
+          "end": 4.052,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-6",
+      "scene_id": "scene_1",
+      "surface": null,
+      "start": 4.052,
+      "end": 4.691,
+      "text": "to begin.",
+      "words": [
+        {
+          "id": "caption-word-6-0",
+          "text": "to",
+          "start": 4.052,
+          "end": 4.2,
+          "classes": []
+        },
+        {
+          "id": "caption-word-6-1",
+          "text": "begin.",
+          "start": 4.2,
+          "end": 4.571,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-7",
+      "scene_id": "scene_2",
+      "surface": null,
+      "start": 4.701,
+      "end": 5.112,
+      "text": "First,",
+      "words": [
+        {
+          "id": "caption-word-7-0",
+          "text": "First,",
+          "start": 4.701,
+          "end": 5.112,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-8",
+      "scene_id": "scene_2",
+      "surface": null,
+      "start": 5.112,
+      "end": 5.77,
+      "text": "name your",
+      "words": [
+        {
+          "id": "caption-word-8-0",
+          "text": "name",
+          "start": 5.112,
+          "end": 5.441,
+          "classes": []
+        },
+        {
+          "id": "caption-word-8-1",
+          "text": "your",
+          "start": 5.441,
+          "end": 5.77,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-9",
+      "scene_id": "scene_2",
+      "surface": null,
+      "start": 5.77,
+      "end": 6.099,
+      "text": "goal.",
+      "words": [
+        {
+          "id": "caption-word-9-0",
+          "text": "goal.",
+          "start": 5.77,
+          "end": 6.099,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-10",
+      "scene_id": "scene_2",
+      "surface": null,
+      "start": 6.099,
+      "end": 6.922,
+      "text": "Retirement,",
+      "words": [
+        {
+          "id": "caption-word-10-0",
+          "text": "Retirement,",
+          "start": 6.099,
+          "end": 6.922,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-11",
+      "scene_id": "scene_2",
+      "surface": null,
+      "start": 6.922,
+      "end": 7.415,
+      "text": "a house,",
+      "words": [
+        {
+          "id": "caption-word-11-0",
+          "text": "a",
+          "start": 6.922,
+          "end": 7.004,
+          "classes": []
+        },
+        {
+          "id": "caption-word-11-1",
+          "text": "house,",
+          "start": 7.004,
+          "end": 7.415,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-12",
+      "scene_id": "scene_2",
+      "surface": null,
+      "start": 7.415,
+      "end": 8.649,
+      "text": "freedom your why",
+      "words": [
+        {
+          "id": "caption-word-12-0",
+          "text": "freedom",
+          "start": 7.415,
+          "end": 7.991,
+          "classes": []
+        },
+        {
+          "id": "caption-word-12-1",
+          "text": "your",
+          "start": 8.073,
+          "end": 8.402,
+          "classes": []
+        },
+        {
+          "id": "caption-word-12-2",
+          "text": "why",
+          "start": 8.402,
+          "end": 8.649,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-13",
+      "scene_id": "scene_2",
+      "surface": null,
+      "start": 8.649,
+      "end": 10.003,
+      "text": "sets the timeline.",
+      "words": [
+        {
+          "id": "caption-word-13-0",
+          "text": "sets",
+          "start": 8.649,
+          "end": 8.978,
+          "classes": []
+        },
+        {
+          "id": "caption-word-13-1",
+          "text": "the",
+          "start": 8.978,
+          "end": 9.225,
+          "classes": []
+        },
+        {
+          "id": "caption-word-13-2",
+          "text": "timeline.",
+          "start": 9.225,
+          "end": 9.883,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-14",
+      "scene_id": "scene_3",
+      "surface": null,
+      "start": 10.013,
+      "end": 10.358,
+      "text": "Next,",
+      "words": [
+        {
+          "id": "caption-word-14-0",
+          "text": "Next,",
+          "start": 10.013,
+          "end": 10.358,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-15",
+      "scene_id": "scene_3",
+      "surface": null,
+      "start": 10.358,
+      "end": 11.478,
+      "text": "secure the base:",
+      "words": [
+        {
+          "id": "caption-word-15-0",
+          "text": "secure",
+          "start": 10.358,
+          "end": 10.875,
+          "classes": []
+        },
+        {
+          "id": "caption-word-15-1",
+          "text": "the",
+          "start": 10.875,
+          "end": 11.134,
+          "classes": []
+        },
+        {
+          "id": "caption-word-15-2",
+          "text": "base:",
+          "start": 11.134,
+          "end": 11.478,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-16",
+      "scene_id": "scene_3",
+      "surface": null,
+      "start": 11.478,
+      "end": 12.771,
+      "text": "an emergency fund",
+      "words": [
+        {
+          "id": "caption-word-16-0",
+          "text": "an",
+          "start": 11.478,
+          "end": 11.651,
+          "classes": []
+        },
+        {
+          "id": "caption-word-16-1",
+          "text": "emergency",
+          "start": 11.651,
+          "end": 12.426,
+          "classes": []
+        },
+        {
+          "id": "caption-word-16-2",
+          "text": "fund",
+          "start": 12.426,
+          "end": 12.771,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-17",
+      "scene_id": "scene_3",
+      "surface": null,
+      "start": 12.771,
+      "end": 14.237,
+      "text": "and no high-interest",
+      "words": [
+        {
+          "id": "caption-word-17-0",
+          "text": "and",
+          "start": 12.771,
+          "end": 13.03,
+          "classes": []
+        },
+        {
+          "id": "caption-word-17-1",
+          "text": "no",
+          "start": 13.03,
+          "end": 13.202,
+          "classes": []
+        },
+        {
+          "id": "caption-word-17-2",
+          "text": "high-interest",
+          "start": 13.202,
+          "end": 14.237,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-18",
+      "scene_id": "scene_3",
+      "surface": null,
+      "start": 14.237,
+      "end": 14.581,
+      "text": "debt.",
+      "words": [
+        {
+          "id": "caption-word-18-0",
+          "text": "debt.",
+          "start": 14.237,
+          "end": 14.581,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-19",
+      "scene_id": "scene_3",
+      "surface": null,
+      "start": 14.581,
+      "end": 16.339,
+      "text": "Invest from stability.",
+      "words": [
+        {
+          "id": "caption-word-19-0",
+          "text": "Invest",
+          "start": 14.581,
+          "end": 15.098,
+          "classes": []
+        },
+        {
+          "id": "caption-word-19-1",
+          "text": "from",
+          "start": 15.098,
+          "end": 15.443,
+          "classes": []
+        },
+        {
+          "id": "caption-word-19-2",
+          "text": "stability.",
+          "start": 15.443,
+          "end": 16.219,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-20",
+      "scene_id": "scene_4",
+      "surface": null,
+      "start": 16.349,
+      "end": 17.38,
+      "text": "Then open an",
+      "words": [
+        {
+          "id": "caption-word-20-0",
+          "text": "Then",
+          "start": 16.349,
+          "end": 16.761,
+          "classes": []
+        },
+        {
+          "id": "caption-word-20-1",
+          "text": "open",
+          "start": 16.761,
+          "end": 17.174,
+          "classes": []
+        },
+        {
+          "id": "caption-word-20-2",
+          "text": "an",
+          "start": 17.174,
+          "end": 17.38,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-21",
+      "scene_id": "scene_4",
+      "surface": null,
+      "start": 17.38,
+      "end": 18.72,
+      "text": "account a 401(k),",
+      "words": [
+        {
+          "id": "caption-word-21-0",
+          "text": "account",
+          "start": 17.38,
+          "end": 18.101,
+          "classes": []
+        },
+        {
+          "id": "caption-word-21-1",
+          "text": "a",
+          "start": 18.204,
+          "end": 18.307,
+          "classes": []
+        },
+        {
+          "id": "caption-word-21-2",
+          "text": "401(k),",
+          "start": 18.307,
+          "end": 18.72,
+          "classes": [
+            "is-numeric"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "caption-group-22",
+      "scene_id": "scene_4",
+      "surface": null,
+      "start": 18.72,
+      "end": 19.029,
+      "text": "IRA,",
+      "words": [
+        {
+          "id": "caption-word-22-0",
+          "text": "IRA,",
+          "start": 18.72,
+          "end": 19.029,
+          "classes": [
+            "is-allcaps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "caption-group-23",
+      "scene_id": "scene_4",
+      "surface": null,
+      "start": 19.029,
+      "end": 20.163,
+      "text": "or brokerage.",
+      "words": [
+        {
+          "id": "caption-word-23-0",
+          "text": "or",
+          "start": 19.029,
+          "end": 19.235,
+          "classes": []
+        },
+        {
+          "id": "caption-word-23-1",
+          "text": "brokerage.",
+          "start": 19.235,
+          "end": 20.163,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-24",
+      "scene_id": "scene_4",
+      "surface": null,
+      "start": 20.163,
+      "end": 22.327,
+      "text": "The wrapper decides your",
+      "words": [
+        {
+          "id": "caption-word-24-0",
+          "text": "The",
+          "start": 20.163,
+          "end": 20.472,
+          "classes": []
+        },
+        {
+          "id": "caption-word-24-1",
+          "text": "wrapper",
+          "start": 20.472,
+          "end": 21.194,
+          "classes": []
+        },
+        {
+          "id": "caption-word-24-2",
+          "text": "decides",
+          "start": 21.194,
+          "end": 21.915,
+          "classes": []
+        },
+        {
+          "id": "caption-word-24-3",
+          "text": "your",
+          "start": 21.915,
+          "end": 22.327,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-25",
+      "scene_id": "scene_4",
+      "surface": null,
+      "start": 22.327,
+      "end": 23.272,
+      "text": "tax break.",
+      "words": [
+        {
+          "id": "caption-word-25-0",
+          "text": "tax",
+          "start": 22.327,
+          "end": 22.637,
+          "classes": []
+        },
+        {
+          "id": "caption-word-25-1",
+          "text": "break.",
+          "start": 22.637,
+          "end": 23.152,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-26",
+      "scene_id": "scene_5",
+      "surface": null,
+      "start": 23.282,
+      "end": 24.027,
+      "text": "Now invest.",
+      "words": [
+        {
+          "id": "caption-word-26-0",
+          "text": "Now",
+          "start": 23.282,
+          "end": 23.53,
+          "classes": []
+        },
+        {
+          "id": "caption-word-26-1",
+          "text": "invest.",
+          "start": 23.53,
+          "end": 24.027,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-27",
+      "scene_id": "scene_5",
+      "surface": null,
+      "start": 24.027,
+      "end": 25.435,
+      "text": "Low-cost index funds",
+      "words": [
+        {
+          "id": "caption-word-27-0",
+          "text": "Low-cost",
+          "start": 24.027,
+          "end": 24.607,
+          "classes": []
+        },
+        {
+          "id": "caption-word-27-1",
+          "text": "index",
+          "start": 24.607,
+          "end": 25.021,
+          "classes": []
+        },
+        {
+          "id": "caption-word-27-2",
+          "text": "funds",
+          "start": 25.021,
+          "end": 25.435,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-28",
+      "scene_id": "scene_5",
+      "surface": null,
+      "start": 25.435,
+      "end": 26.678,
+      "text": "spread your money",
+      "words": [
+        {
+          "id": "caption-word-28-0",
+          "text": "spread",
+          "start": 25.435,
+          "end": 25.932,
+          "classes": []
+        },
+        {
+          "id": "caption-word-28-1",
+          "text": "your",
+          "start": 25.932,
+          "end": 26.264,
+          "classes": []
+        },
+        {
+          "id": "caption-word-28-2",
+          "text": "money",
+          "start": 26.264,
+          "end": 26.678,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-29",
+      "scene_id": "scene_5",
+      "surface": null,
+      "start": 26.678,
+      "end": 27.837,
+      "text": "across the whole",
+      "words": [
+        {
+          "id": "caption-word-29-0",
+          "text": "across",
+          "start": 26.678,
+          "end": 27.175,
+          "classes": []
+        },
+        {
+          "id": "caption-word-29-1",
+          "text": "the",
+          "start": 27.175,
+          "end": 27.423,
+          "classes": []
+        },
+        {
+          "id": "caption-word-29-2",
+          "text": "whole",
+          "start": 27.423,
+          "end": 27.837,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-30",
+      "scene_id": "scene_5",
+      "surface": null,
+      "start": 27.837,
+      "end": 28.5,
+      "text": "market in",
+      "words": [
+        {
+          "id": "caption-word-30-0",
+          "text": "market",
+          "start": 27.837,
+          "end": 28.334,
+          "classes": []
+        },
+        {
+          "id": "caption-word-30-1",
+          "text": "in",
+          "start": 28.334,
+          "end": 28.5,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-31",
+      "scene_id": "scene_5",
+      "surface": null,
+      "start": 28.5,
+      "end": 29.117,
+      "text": "one buy.",
+      "words": [
+        {
+          "id": "caption-word-31-0",
+          "text": "one",
+          "start": 28.5,
+          "end": 28.749,
+          "classes": []
+        },
+        {
+          "id": "caption-word-31-1",
+          "text": "buy.",
+          "start": 28.749,
+          "end": 28.997,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-32",
+      "scene_id": "scene_6",
+      "surface": null,
+      "start": 29.127,
+      "end": 29.458,
+      "text": "Last,",
+      "words": [
+        {
+          "id": "caption-word-32-0",
+          "text": "Last,",
+          "start": 29.127,
+          "end": 29.458,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-33",
+      "scene_id": "scene_6",
+      "surface": null,
+      "start": 29.458,
+      "end": 30.284,
+      "text": "automate it.",
+      "words": [
+        {
+          "id": "caption-word-33-0",
+          "text": "automate",
+          "start": 29.458,
+          "end": 30.119,
+          "classes": []
+        },
+        {
+          "id": "caption-word-33-1",
+          "text": "it.",
+          "start": 30.119,
+          "end": 30.284,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-34",
+      "scene_id": "scene_6",
+      "surface": null,
+      "start": 30.284,
+      "end": 30.862,
+      "text": "Invest a",
+      "words": [
+        {
+          "id": "caption-word-34-0",
+          "text": "Invest",
+          "start": 30.284,
+          "end": 30.78,
+          "classes": []
+        },
+        {
+          "id": "caption-word-34-1",
+          "text": "a",
+          "start": 30.78,
+          "end": 30.862,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-35",
+      "scene_id": "scene_6",
+      "surface": null,
+      "start": 30.862,
+      "end": 32.185,
+      "text": "set amount monthly",
+      "words": [
+        {
+          "id": "caption-word-35-0",
+          "text": "set",
+          "start": 30.862,
+          "end": 31.11,
+          "classes": []
+        },
+        {
+          "id": "caption-word-35-1",
+          "text": "amount",
+          "start": 31.11,
+          "end": 31.606,
+          "classes": []
+        },
+        {
+          "id": "caption-word-35-2",
+          "text": "monthly",
+          "start": 31.606,
+          "end": 32.185,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-36",
+      "scene_id": "scene_6",
+      "surface": null,
+      "start": 32.185,
+      "end": 32.681,
+      "text": "and let",
+      "words": [
+        {
+          "id": "caption-word-36-0",
+          "text": "and",
+          "start": 32.185,
+          "end": 32.433,
+          "classes": []
+        },
+        {
+          "id": "caption-word-36-1",
+          "text": "let",
+          "start": 32.433,
+          "end": 32.681,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-37",
+      "scene_id": "scene_6",
+      "surface": null,
+      "start": 32.681,
+      "end": 33.176,
+      "text": "time do",
+      "words": [
+        {
+          "id": "caption-word-37-0",
+          "text": "time",
+          "start": 32.681,
+          "end": 33.011,
+          "classes": []
+        },
+        {
+          "id": "caption-word-37-1",
+          "text": "do",
+          "start": 33.011,
+          "end": 33.176,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-38",
+      "scene_id": "scene_6",
+      "surface": null,
+      "start": 33.176,
+      "end": 34.536,
+      "text": "the heavy lifting.",
+      "words": [
+        {
+          "id": "caption-word-38-0",
+          "text": "the",
+          "start": 33.176,
+          "end": 33.424,
+          "classes": []
+        },
+        {
+          "id": "caption-word-38-1",
+          "text": "heavy",
+          "start": 33.424,
+          "end": 33.838,
+          "classes": []
+        },
+        {
+          "id": "caption-word-38-2",
+          "text": "lifting.",
+          "start": 33.838,
+          "end": 34.416,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-39",
+      "scene_id": "scene_7",
+      "surface": null,
+      "start": 34.546,
+      "end": 34.892,
+      "text": "Goal,",
+      "words": [
+        {
+          "id": "caption-word-39-0",
+          "text": "Goal,",
+          "start": 34.546,
+          "end": 34.892,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-40",
+      "scene_id": "scene_7",
+      "surface": null,
+      "start": 34.892,
+      "end": 35.672,
+      "text": "safety net,",
+      "words": [
+        {
+          "id": "caption-word-40-0",
+          "text": "safety",
+          "start": 34.892,
+          "end": 35.412,
+          "classes": []
+        },
+        {
+          "id": "caption-word-40-1",
+          "text": "net,",
+          "start": 35.412,
+          "end": 35.672,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-41",
+      "scene_id": "scene_7",
+      "surface": null,
+      "start": 35.672,
+      "end": 36.278,
+      "text": "account,",
+      "words": [
+        {
+          "id": "caption-word-41-0",
+          "text": "account,",
+          "start": 35.672,
+          "end": 36.278,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-42",
+      "scene_id": "scene_7",
+      "surface": null,
+      "start": 36.278,
+      "end": 37.144,
+      "text": "index funds,",
+      "words": [
+        {
+          "id": "caption-word-42-0",
+          "text": "index",
+          "start": 36.278,
+          "end": 36.711,
+          "classes": []
+        },
+        {
+          "id": "caption-word-42-1",
+          "text": "funds,",
+          "start": 36.711,
+          "end": 37.144,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-43",
+      "scene_id": "scene_7",
+      "surface": null,
+      "start": 37.144,
+      "end": 37.836,
+      "text": "automate.",
+      "words": [
+        {
+          "id": "caption-word-43-0",
+          "text": "automate.",
+          "start": 37.144,
+          "end": 37.836,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-44",
+      "scene_id": "scene_7",
+      "surface": null,
+      "start": 37.836,
+      "end": 39.135,
+      "text": "Five steps that's",
+      "words": [
+        {
+          "id": "caption-word-44-0",
+          "text": "Five",
+          "start": 37.836,
+          "end": 38.183,
+          "classes": []
+        },
+        {
+          "id": "caption-word-44-1",
+          "text": "steps",
+          "start": 38.183,
+          "end": 38.616,
+          "classes": []
+        },
+        {
+          "id": "caption-word-44-2",
+          "text": "that's",
+          "start": 38.702,
+          "end": 39.135,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-45",
+      "scene_id": "scene_7",
+      "surface": null,
+      "start": 39.135,
+      "end": 40.381,
+      "text": "the whole start.",
+      "words": [
+        {
+          "id": "caption-word-45-0",
+          "text": "the",
+          "start": 39.135,
+          "end": 39.395,
+          "classes": []
+        },
+        {
+          "id": "caption-word-45-1",
+          "text": "whole",
+          "start": 39.395,
+          "end": 39.828,
+          "classes": []
+        },
+        {
+          "id": "caption-word-45-2",
+          "text": "start.",
+          "start": 39.828,
+          "end": 40.261,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-46",
+      "scene_id": "scene_8",
+      "surface": null,
+      "start": 40.391,
+      "end": 40.981,
+      "text": "The best",
+      "words": [
+        {
+          "id": "caption-word-46-0",
+          "text": "The",
+          "start": 40.391,
+          "end": 40.644,
+          "classes": []
+        },
+        {
+          "id": "caption-word-46-1",
+          "text": "best",
+          "start": 40.644,
+          "end": 40.981,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-47",
+      "scene_id": "scene_8",
+      "surface": null,
+      "start": 40.981,
+      "end": 41.486,
+      "text": "time to",
+      "words": [
+        {
+          "id": "caption-word-47-0",
+          "text": "time",
+          "start": 40.981,
+          "end": 41.318,
+          "classes": []
+        },
+        {
+          "id": "caption-word-47-1",
+          "text": "to",
+          "start": 41.318,
+          "end": 41.486,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-48",
+      "scene_id": "scene_8",
+      "surface": null,
+      "start": 41.486,
+      "end": 42.918,
+      "text": "start was yesterday.",
+      "words": [
+        {
+          "id": "caption-word-48-0",
+          "text": "start",
+          "start": 41.486,
+          "end": 41.907,
+          "classes": []
+        },
+        {
+          "id": "caption-word-48-1",
+          "text": "was",
+          "start": 41.907,
+          "end": 42.16,
+          "classes": []
+        },
+        {
+          "id": "caption-word-48-2",
+          "text": "yesterday.",
+          "start": 42.16,
+          "end": 42.918,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-49",
+      "scene_id": "scene_8",
+      "surface": null,
+      "start": 42.918,
+      "end": 44.013,
+      "text": "The second best",
+      "words": [
+        {
+          "id": "caption-word-49-0",
+          "text": "The",
+          "start": 42.918,
+          "end": 43.171,
+          "classes": []
+        },
+        {
+          "id": "caption-word-49-1",
+          "text": "second",
+          "start": 43.171,
+          "end": 43.676,
+          "classes": []
+        },
+        {
+          "id": "caption-word-49-2",
+          "text": "best",
+          "start": 43.676,
+          "end": 44.013,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-50",
+      "scene_id": "scene_8",
+      "surface": null,
+      "start": 44.013,
+      "end": 44.603,
+      "text": "is today.",
+      "words": [
+        {
+          "id": "caption-word-50-0",
+          "text": "is",
+          "start": 44.013,
+          "end": 44.182,
+          "classes": []
+        },
+        {
+          "id": "caption-word-50-1",
+          "text": "today.",
+          "start": 44.182,
+          "end": 44.603,
+          "classes": []
+        }
+      ]
+    },
+    {
+      "id": "caption-group-51",
+      "scene_id": "scene_8",
+      "surface": null,
+      "start": 44.603,
+      "end": 45.565,
+      "text": "Start today.",
+      "words": [
+        {
+          "id": "caption-word-51-0",
+          "text": "Start",
+          "start": 44.603,
+          "end": 45.024,
+          "classes": []
+        },
+        {
+          "id": "caption-word-51-1",
+          "text": "today.",
+          "start": 45.024,
+          "end": 45.445,
+          "classes": []
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "groups": 52,
+    "cross_scene_splits": 0,
+    "silence_gap_splits": 0,
+    "punct_splits": 29,
+    "cap_splits": 23,
+    "density_shortened": 45,
+    "is_allcaps": 1,
+    "is_numeric": 1,
+    "dropped": {
+      "music": 0,
+      "punct": 3,
+      "short": 0,
+      "filler": 0
+    }
+  },
+  "anomalies": []
+}

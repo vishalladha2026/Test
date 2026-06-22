@@ -1,0 +1,164 @@
+{
+  "project": "5 Steps to Start Investing",
+  "narrativeArchetype": "how-to-process with listicle",
+  "stylePreset": "pin-and-paper",
+  "orientation": "landscape",
+  "emotionalArc": "From the overwhelm of not knowing where to begin, through five reassuring concrete moves, to the quiet confidence that starting is simple and the time is now.",
+  "scenes": [
+    {
+      "sceneNumber": 1,
+      "sceneName": "Hook / Title",
+      "transition": {
+        "continuity": "break",
+        "intent": "cut",
+        "description": "Open cold on warm paper; the title pins in word by word and a single seed drops to the lower center, setting up the growth motif."
+      },
+      "narrativeIntent": {
+        "type": "hook",
+        "narrativeRole": "Name the viewer's exact blocker and promise a simple five-part path out of it.",
+        "keyMessage": "Starting to invest is just five concrete moves, beginning from zero.",
+        "persuasion": "curiosity gap + concrete enumeration",
+        "emotionalBeat": "anticipation"
+      },
+      "assetCandidates": [],
+      "script": "Want to start investing but don't know step one? Here are five moves to begin.",
+      "estimatedDuration": "8s"
+    },
+    {
+      "sceneNumber": 2,
+      "sceneName": "Step 1 — Set a clear goal",
+      "transition": {
+        "continuity": "break",
+        "intent": "slide",
+        "description": "Title card slides off; three handwritten goal cards pin up in sequence with a timeline arrow drawing left to right beneath them."
+      },
+      "narrativeIntent": {
+        "type": "feature_showcase",
+        "narrativeRole": "Establish that a defined goal sets the whole plan's timeline before any money moves.",
+        "keyMessage": "Naming your why — retirement, a home, freedom — sets your investing timeline.",
+        "persuasion": "concrete exemplars",
+        "emotionalBeat": "clarity"
+      },
+      "assetCandidates": [],
+      "script": "First, name your goal. Retirement, a house, freedom — your why sets the timeline.",
+      "estimatedDuration": "12s"
+    },
+    {
+      "sceneNumber": 3,
+      "sceneName": "Step 2 — Build your safety net",
+      "transition": {
+        "continuity": "continue",
+        "intent": "morph",
+        "sharedMotif": "the growing seedling",
+        "description": "On the same paper stage, a jar fills to a marked line while a frayed terracotta debt thread is cut; the seedling grows one notch taller."
+      },
+      "narrativeIntent": {
+        "type": "feature_showcase",
+        "narrativeRole": "Insist on financial stability as the precondition for investing at all.",
+        "keyMessage": "Secure an emergency fund and clear high-interest debt before investing.",
+        "persuasion": "sequence-as-safety framing",
+        "emotionalBeat": "reassurance"
+      },
+      "assetCandidates": [],
+      "script": "Next, secure the base: an emergency fund and no high-interest debt. Invest from stability.",
+      "estimatedDuration": "12s"
+    },
+    {
+      "sceneNumber": 4,
+      "sceneName": "Step 3 — Open the right account",
+      "transition": {
+        "continuity": "continue",
+        "intent": "morph",
+        "sharedMotif": "the growing seedling",
+        "description": "Same stage; three paper folders labeled 401(k), IRA and Brokerage fan out and a tax-advantaged tag stamps onto the first two with an ink press."
+      },
+      "narrativeIntent": {
+        "type": "feature_showcase",
+        "narrativeRole": "Show that the account wrapper, chosen before buying, determines the tax treatment.",
+        "keyMessage": "Pick an account — 401(k), IRA, or brokerage — to set your tax break.",
+        "persuasion": "categorization for decision-making",
+        "emotionalBeat": "orientation"
+      },
+      "assetCandidates": [],
+      "script": "Then open an account — a 401(k), IRA, or brokerage. The wrapper decides your tax break.",
+      "estimatedDuration": "12s"
+    },
+    {
+      "sceneNumber": 5,
+      "sceneName": "Step 4 — Buy low-cost index funds",
+      "transition": {
+        "continuity": "break",
+        "intent": "zoom",
+        "description": "Punch into a single coin that fans out into a grid of tiny company tiles representing the whole market while a fee percentage counts down toward zero."
+      },
+      "narrativeIntent": {
+        "type": "feature_showcase",
+        "narrativeRole": "Present low-cost index funds as the simplest diversified way to actually invest.",
+        "keyMessage": "Low-cost index funds buy the whole market at once with low fees.",
+        "persuasion": "one-action simplicity + cost salience",
+        "emotionalBeat": "delight"
+      },
+      "assetCandidates": [],
+      "script": "Now invest. Low-cost index funds spread your money across the whole market in one buy.",
+      "estimatedDuration": "13s"
+    },
+    {
+      "sceneNumber": 6,
+      "sceneName": "Step 5 — Automate & stay consistent",
+      "transition": {
+        "continuity": "continue",
+        "intent": "morph",
+        "sharedMotif": "the growing seedling becoming a tree",
+        "description": "Same stage; a monthly calendar drops a coin each cycle while the seedling grows into a full tree and a compounding curve rises behind it."
+      },
+      "narrativeIntent": {
+        "type": "feature_showcase",
+        "narrativeRole": "Convert the steps into a durable habit and credit time, not timing, for growth.",
+        "keyMessage": "Automate a monthly amount and let time and compounding do the work.",
+        "persuasion": "habit + time-in-market over timing",
+        "emotionalBeat": "momentum"
+      },
+      "assetCandidates": [],
+      "script": "Last, automate it. Invest a set amount monthly and let time do the heavy lifting.",
+      "estimatedDuration": "13s"
+    },
+    {
+      "sceneNumber": 7,
+      "sceneName": "Recap",
+      "transition": {
+        "continuity": "break",
+        "intent": "dissolve",
+        "description": "Dissolve to a tidy checklist as the five step cards re-pin in a vertical stack, each checkmark stamping down beside the grown tree."
+      },
+      "narrativeIntent": {
+        "type": "benefit_highlight",
+        "narrativeRole": "Compress the five moves into one memorable, repeatable list.",
+        "keyMessage": "Goal, safety net, account, index funds, automate — that is the whole start.",
+        "persuasion": "recap chunking for recall",
+        "emotionalBeat": "confidence"
+      },
+      "assetCandidates": [],
+      "script": "Goal, safety net, account, index funds, automate. Five steps — that's the whole start.",
+      "estimatedDuration": "8s"
+    },
+    {
+      "sceneNumber": 8,
+      "sceneName": "CTA / Outro",
+      "transition": {
+        "continuity": "break",
+        "intent": "slide",
+        "description": "Checklist slides away to leave the tree on paper beside a faint echo of the opening seed; the headline pins in and a small disclaimer fades up at the bottom."
+      },
+      "narrativeIntent": {
+        "type": "cta",
+        "narrativeRole": "Remove the last excuse and push the viewer to act today, with required disclaimer.",
+        "keyMessage": "The best moment to start is now — begin today.",
+        "persuasion": "urgency via the planting-a-tree proverb",
+        "emotionalBeat": "resolve"
+      },
+      "assetCandidates": [],
+      "script": "The best time to start was yesterday. The second best is today. Start today.",
+      "estimatedDuration": "7s"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "text": "Then",
+    "start": 0.05,
+    "end": 0.462
+  },
+  {
+    "text": "open",
+    "start": 0.462,
+    "end": 0.875
+  },
+  {
+    "text": "an",
+    "start": 0.875,
+    "end": 1.081
+  },
+  {
+    "text": "account",
+    "start": 1.081,
+    "end": 1.802
+  },
+  {
+    "text": "—",
+    "start": 1.802,
+    "end": 1.905
+  },
+  {
+    "text": "a",
+    "start": 1.905,
+    "end": 2.008
+  },
+  {
+    "text": "401(k),",
+    "start": 2.008,
+    "end": 2.421
+  },
+  {
+    "text": "IRA,",
+    "start": 2.421,
+    "end": 2.73
+  },
+  {
+    "text": "or",
+    "start": 2.73,
+    "end": 2.936
+  },
+  {
+    "text": "brokerage.",
+    "start": 2.936,
+    "end": 3.864
+  },
+  {
+    "text": "The",
+    "start": 3.864,
+    "end": 4.173
+  },
+  {
+    "text": "wrapper",
+    "start": 4.173,
+    "end": 4.895
+  },
+  {
+    "text": "decides",
+    "start": 4.895,
+    "end": 5.616
+  },
+  {
+    "text": "your",
+    "start": 5.616,
+    "end": 6.028
+  },
+  {
+    "text": "tax",
+    "start": 6.028,
+    "end": 6.338
+  },
+  {
+    "text": "break.",
+    "start": 6.338,
+    "end": 6.853
+  }
+]

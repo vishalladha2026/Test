@@ -1,0 +1,420 @@
+<template id="scene_7-template">
+  <div id="root" class="scene_7-root" data-composition-id="scene_7" data-width="1920" data-height="1080" data-duration="5.845" style="position:relative; width:1920px; height:1080px; overflow:hidden;">
+    <style>
+      #root {
+        background: var(--surface-paper);
+        font-family: var(--font-body);
+        color: var(--brand-primary);
+      }
+      #root *,
+      #root *::before,
+      #root *::after {
+        box-sizing: border-box;
+      }
+
+      /* full-bleed paper grain ambient (background, exempt from keep-out) */
+      .s7-grain {
+        position: absolute;
+        inset: 0;
+        background-image: var(--paper-grain);
+        opacity: 0.5;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* content stage */
+      .s7-stage {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 80px;
+        padding: 120px 96px 240px 96px;
+      }
+
+      /* left column ~45% — checklist */
+      .s7-list-col {
+        flex: 0 0 46%;
+        max-width: 46%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 26px;
+      }
+      .s7-eyebrow {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 1;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        opacity: 0.78;
+      }
+
+      /* viewport that masks the springing card stack (ticker window) */
+      .s7-ticker {
+        width: 100%;
+        height: 590px;
+        overflow: hidden;
+        position: relative;
+      }
+      .s7-stack-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        will-change: transform;
+      }
+
+      /* per-step row: numeral + card + checkmark */
+      .s7-step {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 18px;
+        height: 100px;
+      }
+      .s7-num {
+        font-family: var(--font-script);
+        font-weight: 700;
+        font-size: 58px;
+        line-height: 0.9;
+        color: var(--brand-primary);
+        width: 44px;
+        flex: 0 0 44px;
+        text-align: center;
+      }
+      .s7-card {
+        position: relative;
+        flex: 1 1 auto;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        background: var(--surface-cream);
+        border: var(--border-hairline);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-pin-compact);
+        padding: 14px 20px;
+        color: var(--brand-primary);
+      }
+      .s7-card-title {
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 1.02;
+        letter-spacing: -0.015em;
+        margin: 0;
+        color: var(--brand-primary);
+      }
+      .s7-card-sub {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 1;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin: 0;
+        opacity: 0.62;
+        color: var(--brand-primary);
+      }
+      /* checkmark sits in flow at the row end (own flex child, never overlaps card) */
+      .s7-check {
+        flex: 0 0 64px;
+        width: 64px;
+        height: 64px;
+      }
+      .s7-check-tick {
+        fill: none;
+        stroke: var(--brand-secondary);
+        stroke-width: 9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .s7-check-ring {
+        fill: none;
+        stroke: var(--brand-secondary);
+        stroke-width: 4;
+        opacity: 0.45;
+      }
+
+      /* right column — grown tree as earned proof */
+      .s7-tree-col {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+      }
+      .s7-tree-wrap {
+        width: 480px;
+        height: 520px;
+        will-change: transform;
+        transform-origin: 50% 100%;
+      }
+      .s7-tree-note {
+        font-family: var(--font-script);
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 1.05;
+        color: var(--brand-primary);
+        transform: rotate(-2deg);
+        text-align: center;
+      }
+      .s7-tree-note .s7-underline {
+        border-bottom: 2px solid var(--brand-primary);
+        padding-bottom: 1px;
+      }
+    </style>
+
+    <div class="s7-grain"></div>
+
+    <div class="s7-stage">
+      <div class="s7-list-col" data-layout-role="primary" data-layout-act="recap">
+        <div class="s7-eyebrow" id="s7-eyebrow">Recap</div>
+
+        <div class="s7-ticker">
+          <div class="s7-stack-inner" id="s7-stack-inner">
+            <div class="s7-step" id="s7-step-1">
+              <span class="s7-num">1</span>
+              <div class="s7-card">
+                <p class="s7-card-sub">Step 01</p>
+                <h3 class="s7-card-title">Build the buffer</h3>
+              </div>
+              <svg class="s7-check" id="s7-check-1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <circle class="s7-check-ring" cx="32" cy="32" r="28" />
+                <path class="s7-check-tick" id="s7-tick-1" d="M18 33 L28 44 L47 21" />
+              </svg>
+            </div>
+
+            <div class="s7-step" id="s7-step-2">
+              <span class="s7-num">2</span>
+              <div class="s7-card">
+                <p class="s7-card-sub">Step 02</p>
+                <h3 class="s7-card-title">Kill the debt</h3>
+              </div>
+              <svg class="s7-check" id="s7-check-2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <circle class="s7-check-ring" cx="32" cy="32" r="28" />
+                <path class="s7-check-tick" id="s7-tick-2" d="M18 33 L28 44 L47 21" />
+              </svg>
+            </div>
+
+            <div class="s7-step" id="s7-step-3">
+              <span class="s7-num">3</span>
+              <div class="s7-card">
+                <p class="s7-card-sub">Step 03</p>
+                <h3 class="s7-card-title">Open the account</h3>
+              </div>
+              <svg class="s7-check" id="s7-check-3" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <circle class="s7-check-ring" cx="32" cy="32" r="28" />
+                <path class="s7-check-tick" id="s7-tick-3" d="M18 33 L28 44 L47 21" />
+              </svg>
+            </div>
+
+            <div class="s7-step" id="s7-step-4">
+              <span class="s7-num">4</span>
+              <div class="s7-card">
+                <p class="s7-card-sub">Step 04</p>
+                <h3 class="s7-card-title">Cut the fees</h3>
+              </div>
+              <svg class="s7-check" id="s7-check-4" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <circle class="s7-check-ring" cx="32" cy="32" r="28" />
+                <path class="s7-check-tick" id="s7-tick-4" d="M18 33 L28 44 L47 21" />
+              </svg>
+            </div>
+
+            <div class="s7-step" id="s7-step-5">
+              <span class="s7-num">5</span>
+              <div class="s7-card">
+                <p class="s7-card-sub">Step 05</p>
+                <h3 class="s7-card-title">Let it compound</h3>
+              </div>
+              <svg class="s7-check" id="s7-check-5" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <circle class="s7-check-ring" cx="32" cy="32" r="28" />
+                <path class="s7-check-tick" id="s7-tick-5" d="M18 33 L28 44 L47 21" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s7-tree-col" data-layout-role="supporting" data-layout-act="proof">
+        <svg class="s7-tree-wrap" id="s7-tree" viewBox="0 0 480 520" xmlns="http://www.w3.org/2000/svg">
+          <!-- trunk -->
+          <path d="M226 520 C 226 430, 214 380, 224 320 L256 320 C 266 380, 254 430, 254 520 Z"
+                fill="var(--brand-tertiary)" opacity="0.92" />
+          <!-- branches -->
+          <path d="M240 360 C 200 330, 170 320, 150 300" stroke="var(--brand-tertiary)" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85" />
+          <path d="M240 350 C 280 320, 312 312, 336 292" stroke="var(--brand-tertiary)" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85" />
+          <!-- canopy -->
+          <circle cx="240" cy="200" r="120" fill="var(--brand-secondary)" opacity="0.95" />
+          <circle cx="148" cy="248" r="78" fill="var(--brand-secondary)" opacity="0.9" />
+          <circle cx="336" cy="244" r="82" fill="var(--brand-secondary)" opacity="0.9" />
+          <circle cx="240" cy="120" r="74" fill="var(--brand-secondary)" opacity="0.92" />
+          <!-- highlight leaves -->
+          <circle cx="206" cy="168" r="26" fill="var(--deco-2)" opacity="0.55" />
+          <circle cx="296" cy="208" r="22" fill="var(--deco-2)" opacity="0.5" />
+        </svg>
+        <div class="s7-tree-note" id="s7-tree-note">five steps, <span class="s7-underline">one tree</span></div>
+      </div>
+    </div>
+
+    <script>
+      const EASE = {
+        entry: "power2.out",
+        emphasis: "power3.out",
+        exit: "power2.in",
+        drift: "sine.inOut",
+      };
+      const DUR = {
+        snap: 0.18,
+        med: 0.5,
+        slow: 0.95,
+      };
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- initial hidden states (gsap.set, not CSS opacity:0) ----
+      gsap.set("#s7-eyebrow", { opacity: 0, y: -12 });
+      gsap.set(".s7-step", { opacity: 0 });
+      gsap.set("#s7-tree", { opacity: 0, scale: 0.96 });
+      gsap.set("#s7-tree-note", { opacity: 0, y: 14 });
+
+      // checkmark ticks hidden via dash-offset (svg-icon-enrichment: dash-flow / draw-on)
+      const tickEls = [1, 2, 3, 4, 5].map((i) => document.getElementById("s7-tick-" + i));
+      const tickLens = tickEls.map((el) => el.getTotalLength());
+      tickEls.forEach((el, i) => {
+        el.style.strokeDasharray = String(tickLens[i]);
+        el.style.strokeDashoffset = String(tickLens[i]);
+      });
+
+      // ---- eyebrow ----
+      tl.fromTo(
+        "#s7-eyebrow",
+        { opacity: 0, y: -12 },
+        { opacity: 0.78, y: 0, duration: DUR.med, ease: EASE.entry },
+        0.1,
+      );
+
+      // ---- right: grown tree settles early as earned proof ----
+      tl.fromTo(
+        "#s7-tree",
+        { opacity: 0, scale: 0.96 },
+        { opacity: 1, scale: 1, duration: DUR.slow, ease: EASE.entry },
+        0.2,
+      );
+
+      // =========================================================
+      // EFFECT 1 — vertical-spring-ticker: the five step rows
+      // re-pin in a vertical slot rhythm. Additive springs sum to
+      // the stack translateY, giving the slot-machine "click" cadence.
+      // =========================================================
+      const innerEl = document.getElementById("s7-stack-inner");
+      const STEPS = 4; // springs (state transitions); STEPS <= itemCount - 1
+      const ROW_STEP = 118; // row height (100) + stack gap (18)
+      const STEP_DUR = 0.5;
+      const STEP_SPACING = 0.42; // <= STEP_DUR so springs stay additive
+      const STEP_START = 0.55;
+      const BOUNCE = 1.5;
+
+      // Stack starts shifted UP so item 5 region is below the mask; each spring
+      // rolls it back down one row, surfacing the next card into view.
+      const springs = Array.from({ length: STEPS }, () => ({ p: 0 }));
+      // initial offset: hold the whole list shifted so it scrolls into place
+      const baseOffset = STEPS * ROW_STEP;
+      function applyTicker() {
+        const sumP = springs.reduce((a, s) => a + s.p, 0);
+        innerEl.style.transform = "translateY(" + (-baseOffset + sumP * ROW_STEP) + "px)";
+      }
+      applyTicker();
+
+      // reveal each row as its slot clicks into the window
+      const stepEls = [1, 2, 3, 4, 5].map((i) => document.getElementById("s7-step-" + i));
+      // first visible row appears with the first eyebrow beat
+      tl.to(stepEls[0], { opacity: 1, duration: DUR.snap, ease: EASE.entry }, STEP_START - 0.05);
+
+      springs.forEach((spring, i) => {
+        const at = STEP_START + i * STEP_SPACING;
+        tl.to(
+          spring,
+          {
+            p: 1,
+            duration: STEP_DUR,
+            ease: "back.out(" + BOUNCE + ")",
+            onUpdate: applyTicker,
+          },
+          at,
+        );
+        // surface the next row right as this click lands
+        tl.to(stepEls[i + 1], { opacity: 1, duration: DUR.snap, ease: EASE.entry }, at + 0.04);
+      });
+
+      // =========================================================
+      // EFFECT 2 — svg-icon-enrichment: each checkmark draws on
+      // (dash-flow / stroke-draw) beside its card right as the row clicks.
+      // =========================================================
+      const TICK_DRAW_DUR = 0.32;
+      tickEls.forEach((el, i) => {
+        // tie tick draw to when row i settles into the window
+        const rowAt = i === 0 ? STEP_START + 0.12 : STEP_START + (i - 1) * STEP_SPACING + 0.3;
+        const len = tickLens[i];
+        const draw = { o: len };
+        tl.to(
+          draw,
+          {
+            o: 0,
+            duration: TICK_DRAW_DUR,
+            ease: EASE.emphasis,
+            onUpdate: function () {
+              el.style.strokeDashoffset = String(draw.o);
+            },
+          },
+          rowAt,
+        );
+      });
+
+      // tree marginal note arrives after the list completes
+      tl.fromTo(
+        "#s7-tree-note",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: DUR.med, ease: EASE.entry },
+        STEP_START + STEPS * STEP_SPACING + 0.3,
+      );
+
+      // =========================================================
+      // EFFECT 3 — sine-wave-loop: the tree breathes only (per brief).
+      // Idle starts after the tree entry settles; sin(0)=0 -> no jump.
+      // =========================================================
+      const treeEl = document.getElementById("s7-tree");
+      const IDLE_START = 1.2;
+      const IDLE_DUR = 5.845 - IDLE_START;
+      const CYCLES = 2; // ~2.3s per breath cycle
+      const phase = { p: 0 };
+      tl.to(
+        phase,
+        {
+          p: Math.PI * 2 * CYCLES,
+          duration: IDLE_DUR,
+          ease: "none",
+          onUpdate: function () {
+            const t = phase.p / (Math.PI * 2 * CYCLES);
+            const FADE = 0.18;
+            const env = t < 1 - FADE ? 1 : (1 - t) / FADE;
+            const scale = 1 + Math.sin(phase.p) * 0.012 * env;
+            const y = Math.sin(phase.p) * 2.5 * env;
+            treeEl.style.transform = "translateY(" + y + "px) scale(" + scale + ")";
+            treeEl.style.transformOrigin = "50% 100%";
+          },
+        },
+        IDLE_START,
+      );
+
+      window.__timelines["scene_7"] = tl;
+    </script>
+  </div>
+</template>

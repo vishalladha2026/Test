@@ -1,0 +1,587 @@
+{
+  "scenes_per_group_max": 3,
+  "total_scenes": 8,
+  "width": 1920,
+  "height": 1080,
+  "captions_enabled": true,
+  "film_direction": "**Palette:** 60% warm paper canvas (native pin-and-paper grain, consistent every scene) / 30% hairline rules + cream pinned-card surfaces + chapter-label layering / 10% accent — brand-primary amber carries the active step numeral and the live focal element; brand-secondary green is the growth/seedling semantic (jar fill, tree, compounding curve) and never bleeds onto chrome; tertiary terracotta is the one \"cut/cost\" alarm color (debt thread, fee countdown). `--ink` green is print ink for body; if any surface goes pure white prefer the cream/`--paper-warm` step.\n**Type:** display (Space Grotesk, tight, sentence case) = hero words and step titles; mono UPPERCASE wide tracking = eyebrows, \"STEP 0X\" lockups, source/disclaimer tags; Caveat hand-script = step numerals and marginal notes only, never body; body = terse card sentences.\n**Motion:** entries `EASE.entry`; large type blocks and diagram panels heavy; pin/stamp reveals `EASE.emphasis` (settle within ±2° tilt, never counter-rotate to 0°); idle `EASE.drift` at the subtle floor (±2-3 px / ±1-2%, 2.5-4s cycle); exits none — scenes hold the final frame. Budget: ONE root-level macro camera move per scene (slow drift / push / dolly) + at most 1-2 secondary live elements (a breathing hero, one drifting pin); everything else rests.\n**Ambient:** native warm paper texture + sparse paper-grain/fiber noise, full-bleed, identical scene to scene. Single medium — no mesh, swell, grid, scanline, or halftone layered on the paper. One persistent pinned seedling motif lives on the lower stage through the continue run (scenes 3→4→6).\n**Never (film-wide):** no mesh gradients, no neon-on-black, no glow bloom, no purple-blue AI gradient, no floating bokeh, no slide/wipe/zoom inside a scene (the paper settles, it does not swipe), no body text set in the hand-script.\n**Transitions:** crossfade + push-slide only at break seams (continue scenes carry no transition anchor).\n**Stillness-before-climax:** scenes 5 and 8 only — the fee-hits-zero landing and the \"start today\" resolve.\n**Register mix:** scene 1 kinetic typography (pinned title); scene 2 diagram (goal cards + timeline arrow); scenes 3–4 diagram (jar/debt, account folders) inside one continue run; scene 5 data-viz (coin→market grid + fee counter); scene 6 data-viz (calendar coin-drop + compounding curve); scene 7 diagram (vertical checklist); scene 8 kinetic typography (proverb + tree). No captured assets this film (`assetCandidates` all empty).\n**Captions:** captions enabled — bottom ~17% band reserved film-wide; foreground anchors around y≈0.42×height; per-scene prose flags caption risk only where content pushes low.",
+  "total_duration_s": 45.525,
+  "bgm_path": "assets/bgm.wav",
+  "font_face_css": "",
+  "brand_tokens_css": ":root {\n  --brand-primary:   #E0A23B;\n  --brand-secondary: #2E7D5B;\n  --brand-tertiary:  #C8694B;\n  --brand-accent:    #C8694B;\n  --brand-costume:   #E0A23B;\n  --ink:             #2E7D5B;\n  --canvas:          #E0A23B;\n  --brand-gradient:  linear-gradient(135deg, #E0A23B 0%, #2E7D5B 50%, #C8694B 100%);\n  --deco-1:          #F7CB46;\n  --deco-2:          #99E885;\n  --deco-3:          #C0F7FE;\n  --deco-4:          #FE90E8;\n  --font-display:    'Space Grotesk', system-ui, sans-serif;\n  --font-body:       'Space Grotesk', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;\n  --font-mono:       'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;\n  --anchor-paper-yellow: #efe56a; /* saturated cadmium yellow — the page */\n  --anchor-cream: #f8f1d6; /* off-white ivory — the cards */\n  --surface-paper: color-mix(in srgb, var(--brand-primary) 6%, var(--anchor-paper-yellow));\n  --surface-paper-2: color-mix(\n  in srgb,\n  var(--brand-primary) 4%,\n  color-mix(in srgb, var(--anchor-paper-yellow) 70%, white)\n);\n  --surface-paper-3: color-mix(\n  in srgb,\n  var(--brand-primary) 8%,\n  color-mix(in srgb, var(--anchor-paper-yellow) 85%, black 8%)\n);\n  --surface-cream: color-mix(in srgb, var(--brand-primary) 4%, var(--anchor-cream));\n  --shadow-pin-compact: 4px 5px 0 0 var(--brand-primary);\n  --shadow-pin-standard: 5px 6px 0 0 var(--brand-primary);\n  --shadow-pin-hero: 8px 9px 0 0 var(--brand-primary);\n  --border-hairline: 1.5px solid var(--brand-primary);\n  --border-dashed: 1.5px dashed color-mix(in srgb, var(--brand-primary) 45%, transparent);\n  --border-stamp: 3px solid var(--brand-accent);\n  --radius-card: 4px;\n  --radius-pill: 999px;\n  --pad-edge: 64px;\n  --pad-top: 110px;\n  --pad-bottom: 90px;\n  --card-pad: 28px;\n  --card-pad-lg: 36px 28px 28px;\n  --gap-card-sm: 22px;\n  --gap-card-md: 28px;\n  --gap-card-lg: 32px;\n  --tilt-pin: -10deg;\n  --tilt-pin-alt: 14deg;\n  --tilt-card-askew: 0.9deg;\n  --tilt-scribble: -2deg;\n  --tilt-stamp: -4deg;\n  --paper-grain: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.45  0 0 0 0 0.2  0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\");\n}",
+  "groups": [
+    {
+      "worker_id": "w1",
+      "scene_ids": [
+        "scene_1"
+      ],
+      "scenes": {
+        "scene_1": {
+          "start_s": 0,
+          "effects": [
+            "sine-wave-loop",
+            "svg-path-draw",
+            "asr-keyword-glow"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/sine-wave-loop.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/svg-path-draw.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/asr-keyword-glow.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 4.651,
+          "voicePath": "assets/voice/scene_1.wav",
+          "wordsPath": "assets/voice/scene_1_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Anticipation, a confiding warm open with a slight upward lift in rhythm. Centered kinetic typography: the hero question and \"five moves\" promise pin in word by word and fill ~60% of the upper-center stage, generous paper air around it, a mono \"STEP 0X\" eyebrow absent here but a small DM-Mono date-tag lockup top-left. A single seed drops to lower-center on a hand-drawn `svg-path-draw` stem stub, planting the growth motif. `asr-keyword-glow` lifts \"five\" as the narrator hits it; `sine-wave-loop` keeps only the pinned headline breathing. Macro motion: slow drift-in on the scene root. The numeral \"5\" resolves in Caveat hand-script, not a numeric font. Eye settles on the seed at lower-center, which carries forward.\n\n",
+          "local_start_s": 0,
+          "visual_id": "scene_1"
+        }
+      },
+      "start_s": 0,
+      "duration_s": 4.651,
+      "composition_id": "scene_1",
+      "composition_file": "compositions/scene_1.html",
+      "kind": "scene"
+    },
+    {
+      "worker_id": "w2",
+      "scene_ids": [
+        "scene_2",
+        "scene_3",
+        "scene_4"
+      ],
+      "scenes": {
+        "scene_2": {
+          "start_s": 4.651,
+          "effects": [
+            "center-outward-expansion",
+            "svg-path-draw",
+            "sine-wave-loop"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/center-outward-expansion.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/svg-path-draw.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/sine-wave-loop.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 5.312,
+          "voicePath": "assets/voice/scene_2.wav",
+          "wordsPath": "assets/voice/scene_2_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Clarity, a steady three-beat rhythm of things falling into place. Asymmetric diagram register: three handwritten cream goal cards (retirement, a house, freedom) pin up in staggered sequence across the upper 60%, total stagger ≤500ms, while a timeline arrow draws left→right beneath them via `svg-path-draw` to say \"this sets your horizon.\" Step numeral \"1\" in hand-script tops the group; mono eyebrow \"STEP 01\". `center-outward-expansion` fans the three cards from a clustered center to their pinned spots; `sine-wave-loop` keeps the last-landed card breathing. Macro motion: gentle dolly-in. The timeline arrow's right tip is the eye's exit, pushing into the safety-net stage.\n\n",
+          "local_start_s": 0,
+          "visual_id": "group_w2"
+        },
+        "scene_3": {
+          "start_s": 9.963,
+          "effects": [
+            "stat-bars-and-fills",
+            "svg-icon-enrichment",
+            "sine-wave-loop"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/stat-bars-and-fills.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/svg-icon-enrichment.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/sine-wave-loop.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 6.336,
+          "voicePath": "assets/voice/scene_3.wav",
+          "wordsPath": "assets/voice/scene_3_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Reassurance, grounded and a touch slower — the floor being laid. Same paper stage opens the continue run: a cream jar diagram center-left fills with green to a marked \"safe\" line via `stat-bars-and-fills`, while right of it a frayed terracotta debt thread is snipped (`svg-icon-enrichment` animates the cut and the thread going slack). The pinned seedling, established in scene 1, grows one notch taller as the jar tops out — the carried subject for this run. Step numeral \"2\", mono \"STEP 02\". Macro motion: slow push toward the jar. `sine-wave-loop` keeps the seedling breathing only. Carry into the next segment: the jar and cut thread settle to a quiet supporting state lower-left while the seedling holds its new height center-low, ready for the account folders to fan in above it.\n\n",
+          "local_start_s": 5.312,
+          "visual_id": "group_w2"
+        },
+        "scene_4": {
+          "start_s": 16.299,
+          "effects": [
+            "orbit-3d-entry",
+            "card-morph-anchor",
+            "sine-wave-loop"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/orbit-3d-entry.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/card-morph-anchor.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/sine-wave-loop.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 6.933,
+          "voicePath": "assets/voice/scene_4.wav",
+          "wordsPath": "assets/voice/scene_4_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Orientation, a calm sorting-into-place rhythm. Same stage, mid-continue-run: three paper folders labeled 401(k), IRA, and Brokerage fan out into the upper 60% via `orbit-3d-entry`, then a \"TAX-ADVANTAGED\" stamp ink-presses onto the first two (rotated −4°, settling within tilt, `card-morph-anchor` anchors the stamp seat). The seedling from scene 3 persists center-low, holding its height; the demoted jar rests as a faint supporting mark. Step numeral \"3\", mono \"STEP 03\". `sine-wave-loop` keeps the seedling as the single live element. Macro motion: slow drift across the folder fan. Carry into scene 6's segment: the seedling stays the persistent anchor; this run closes here, so let the folders settle for the break-cut into the index-fund punch-in.\n\n",
+          "local_start_s": 11.648,
+          "visual_id": "group_w2"
+        }
+      },
+      "start_s": 4.651,
+      "duration_s": 18.581,
+      "composition_id": "group_w2",
+      "composition_file": "compositions/group_w2.html",
+      "kind": "group"
+    },
+    {
+      "worker_id": "w3",
+      "scene_ids": [
+        "scene_5",
+        "scene_6"
+      ],
+      "scenes": {
+        "scene_5": {
+          "start_s": 23.232,
+          "effects": [
+            "coordinate-target-zoom",
+            "counting-dynamic-scale",
+            "svg-icon-enrichment"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/coordinate-target-zoom.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/counting-dynamic-scale.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/svg-icon-enrichment.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 5.845,
+          "voicePath": "assets/voice/scene_5.wav",
+          "wordsPath": "assets/voice/scene_5_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Delight, a satisfying one-move payoff with a held breath before the landing. Centered data-viz: punch into a single amber coin that fans out into a tight grid of tiny company tiles (~55% of canvas) representing the whole market, `coordinate-target-zoom` driving the push from coin to grid. A fee percentage counts down toward zero via `counting-dynamic-scale` in terracotta, mono numerals. `svg-icon-enrichment` ripples the tile grid alive as it fills. Macro motion: continued push-in resolving to a hold. **Stillness-before-climax (~0.5s):** the grid sits full and the counter freezes just shy of zero before snapping to the final low fee. The fee counter sits in upper-center, well clear of the caption band. Eye rests on the completed market grid, which dissolves toward the automation calendar.\n\n",
+          "local_start_s": 0,
+          "visual_id": "group_w3"
+        },
+        "scene_6": {
+          "start_s": 29.077,
+          "effects": [
+            "dynamic-content-sequencing",
+            "svg-path-draw",
+            "sine-wave-loop"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/dynamic-content-sequencing.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/svg-path-draw.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/sine-wave-loop.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 5.419,
+          "voicePath": "assets/voice/scene_6.wav",
+          "wordsPath": "assets/voice/scene_6_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Momentum, a metronomic monthly pulse rising into quiet payoff. Asymmetric data-viz: a monthly calendar upper-left drops a coin each cycle (`dynamic-content-sequencing` paces the recurring drops by content length, not hard counts) while the persistent seedling — carried from the earlier run, re-summoned here — grows into a full tree center-low, and a green compounding curve rises behind it via `svg-path-draw`. Step numeral \"5\", mono \"STEP 05\". `sine-wave-loop` keeps only the finished tree breathing. Macro motion: slow dolly-out to reveal the grown curve. Eye exits on the tree-and-curve, dissolving into the recap stack.\n\n",
+          "local_start_s": 5.845,
+          "visual_id": "group_w3"
+        }
+      },
+      "start_s": 23.232,
+      "duration_s": 11.264,
+      "composition_id": "group_w3",
+      "composition_file": "compositions/group_w3.html",
+      "kind": "group"
+    },
+    {
+      "worker_id": "w4",
+      "scene_ids": [
+        "scene_7"
+      ],
+      "scenes": {
+        "scene_7": {
+          "start_s": 34.496,
+          "effects": [
+            "vertical-spring-ticker",
+            "svg-icon-enrichment",
+            "sine-wave-loop"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/vertical-spring-ticker.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/svg-icon-enrichment.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/sine-wave-loop.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 5.845,
+          "voicePath": "assets/voice/scene_7.wav",
+          "wordsPath": "assets/voice/scene_7_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Confidence, a brisk tidy checklist cadence — five quick confirmations. Asymmetric diagram: the five step cards re-pin in a vertical stack on the left ~45%, entering via `vertical-spring-ticker` slot rhythm, each gaining a checkmark that stamps down beside it (`svg-icon-enrichment` draws the ticks), while the grown tree from scene 6 holds quietly on the right as earned proof. Hand-script numerals 1–5 down the margin; mono \"RECAP\" eyebrow. `sine-wave-loop` keeps the tree breathing only. Macro motion: gentle drift down the list as ticks land. Cap the lowest card above the caption band. Eye lands on the completed five-tick list, dissolving toward the closing line.\n\n",
+          "local_start_s": 0,
+          "visual_id": "scene_7"
+        }
+      },
+      "start_s": 34.496,
+      "duration_s": 5.845,
+      "composition_id": "scene_7",
+      "composition_file": "compositions/scene_7.html",
+      "kind": "scene"
+    },
+    {
+      "worker_id": "w5",
+      "scene_ids": [
+        "scene_8"
+      ],
+      "scenes": {
+        "scene_8": {
+          "start_s": 40.341,
+          "effects": [
+            "3d-text-depth-layers",
+            "asr-keyword-glow",
+            "svg-path-draw"
+          ],
+          "rule_paths": [
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/3d-text-depth-layers.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/asr-keyword-glow.md",
+            "/home/user/Test/.agents/skills/hyperframes-animation/rules/svg-path-draw.md"
+          ],
+          "assetCandidates": [],
+          "estimatedDuration_s": 5.184,
+          "voicePath": "assets/voice/scene_8.wav",
+          "wordsPath": "assets/voice/scene_8_words.json",
+          "design_chunks": {
+            "tokens_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/tokens.css",
+            "easings_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/easings.js",
+            "voice_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/voice.md",
+            "hints_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/composition-hints.md",
+            "type_roles_file": "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/type-roles.md",
+            "components": [
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/chip.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/divider-loud.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/hero.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/paper-grain-overlay.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pill-yes.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/pinned-card.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/process-step.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/quote-panel.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/safety-pin.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/scribble-note.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stamp.html",
+              "/home/user/Test/videos/5-steps-investing-video/design-system/chunks/components/stat-counter.html"
+            ]
+          },
+          "creative_brief": "Resolve, a warm settled landing with one decisive final push. Centered kinetic typography: the proverb resolves to a hero \"Start today.\" in display tier with `3d-text-depth-layers` giving the words pinned-paper depth, filling ~55% upper-center; the tree rests beside it and a faint echo of the opening seed marks the lower stage via a light `svg-path-draw` stem, closing the growth arc. `asr-keyword-glow` lifts \"today\" on the narration. A small DM-Mono disclaimer tag fades up at the very bottom, kept inside the caption-safe margin and low-contrast so it never competes. Macro motion: slow push-in onto the headline. **Stillness-before-climax (~0.6s):** a held beat on the tree before \"Start today.\" pins in. Eye rests on the headline — final frame holds.\n",
+          "local_start_s": 0,
+          "visual_id": "scene_8"
+        }
+      },
+      "start_s": 40.341,
+      "duration_s": 5.184,
+      "composition_id": "scene_8",
+      "composition_file": "compositions/scene_8.html",
+      "kind": "scene"
+    }
+  ],
+  "visual_clips": [
+    {
+      "id": "scene_1",
+      "file": "compositions/scene_1.html",
+      "kind": "scene",
+      "worker_id": "w1",
+      "scene_ids": [
+        "scene_1"
+      ],
+      "start_s": 0,
+      "duration_s": 4.651
+    },
+    {
+      "id": "group_w2",
+      "file": "compositions/group_w2.html",
+      "kind": "group",
+      "worker_id": "w2",
+      "scene_ids": [
+        "scene_2",
+        "scene_3",
+        "scene_4"
+      ],
+      "start_s": 4.651,
+      "duration_s": 18.581
+    },
+    {
+      "id": "group_w3",
+      "file": "compositions/group_w3.html",
+      "kind": "group",
+      "worker_id": "w3",
+      "scene_ids": [
+        "scene_5",
+        "scene_6"
+      ],
+      "start_s": 23.232,
+      "duration_s": 11.264
+    },
+    {
+      "id": "scene_7",
+      "file": "compositions/scene_7.html",
+      "kind": "scene",
+      "worker_id": "w4",
+      "scene_ids": [
+        "scene_7"
+      ],
+      "start_s": 34.496,
+      "duration_s": 5.845
+    },
+    {
+      "id": "scene_8",
+      "file": "compositions/scene_8.html",
+      "kind": "scene",
+      "worker_id": "w5",
+      "scene_ids": [
+        "scene_8"
+      ],
+      "start_s": 40.341,
+      "duration_s": 5.184
+    }
+  ],
+  "scene_to_visual": {
+    "scene_1": "scene_1",
+    "scene_2": "group_w2",
+    "scene_3": "group_w2",
+    "scene_4": "group_w2",
+    "scene_5": "group_w3",
+    "scene_6": "group_w3",
+    "scene_7": "scene_7",
+    "scene_8": "scene_8"
+  },
+  "internal_seams": [
+    {
+      "from_scene": "scene_2",
+      "to_scene": "scene_3",
+      "visual_id": "group_w2",
+      "worker_id": "w2",
+      "global_time_s": 9.963,
+      "local_time_s": 5.312,
+      "is_break": false
+    },
+    {
+      "from_scene": "scene_3",
+      "to_scene": "scene_4",
+      "visual_id": "group_w2",
+      "worker_id": "w2",
+      "global_time_s": 16.299,
+      "local_time_s": 11.648,
+      "is_break": false
+    },
+    {
+      "from_scene": "scene_5",
+      "to_scene": "scene_6",
+      "visual_id": "group_w3",
+      "worker_id": "w3",
+      "global_time_s": 29.077,
+      "local_time_s": 5.845,
+      "is_break": false
+    }
+  ],
+  "transitions": [
+    {
+      "from": "scene_1",
+      "to": "group_w2",
+      "from_scene": "scene_1",
+      "to_scene": "scene_2",
+      "type": "blur-crossfade",
+      "direction": null,
+      "duration_s": 0.6,
+      "tier": "b",
+      "is_break": true,
+      "bridge_id": null,
+      "from_worker": "w1",
+      "to_worker": "w2"
+    },
+    {
+      "from": "group_w2",
+      "to": "group_w3",
+      "from_scene": "scene_4",
+      "to_scene": "scene_5",
+      "type": "zoom-through",
+      "direction": null,
+      "duration_s": 0.4,
+      "tier": "b",
+      "is_break": true,
+      "bridge_id": null,
+      "from_worker": "w2",
+      "to_worker": "w3"
+    },
+    {
+      "from": "group_w3",
+      "to": "scene_7",
+      "from_scene": "scene_6",
+      "to_scene": "scene_7",
+      "type": "crossfade",
+      "direction": null,
+      "duration_s": 0.5,
+      "tier": "b",
+      "is_break": true,
+      "bridge_id": null,
+      "from_worker": "w3",
+      "to_worker": "w4"
+    },
+    {
+      "from": "scene_7",
+      "to": "scene_8",
+      "from_scene": "scene_7",
+      "to_scene": "scene_8",
+      "type": "crossfade",
+      "direction": null,
+      "duration_s": 0.5,
+      "tier": "b",
+      "is_break": true,
+      "bridge_id": null,
+      "from_worker": "w4",
+      "to_worker": "w5"
+    }
+  ],
+  "sfx": [
+    {
+      "file": "ping.mp3",
+      "t": 28.132,
+      "duration": 1.32,
+      "volume": 0.3,
+      "scene_id": "scene_5",
+      "t_local": 4.9,
+      "note": "the fee counter snaps to its final low number"
+    },
+    {
+      "file": "chime.mp3",
+      "t": 42.941,
+      "duration": 2.5,
+      "volume": 0.3,
+      "scene_id": "scene_8",
+      "t_local": 2.6,
+      "note": "\"Start today.\" pins in"
+    }
+  ]
+}

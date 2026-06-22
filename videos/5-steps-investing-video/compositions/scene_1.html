@@ -1,0 +1,281 @@
+<template id="scene_1-template">
+  <div id="root" class="scene_1-root" data-composition-id="scene_1" data-width="1920" data-height="1080" data-duration="4.651" style="position:relative; width:1920px; height:1080px; overflow:hidden;">
+    <style>
+      #root {
+        background: var(--canvas);
+        font-family: var(--font-body);
+        color: var(--brand-primary);
+      }
+      #root *,
+      #root *::before,
+      #root *::after {
+        box-sizing: border-box;
+      }
+
+      /* Native warm paper texture, full-bleed (film-wide ambient — single medium) */
+      .s1-paper {
+        position: absolute;
+        inset: 0;
+        background-image: var(--paper-grain);
+        background-repeat: repeat;
+        opacity: 0.5;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Macro drift wrapper — holds all content, slow drift-in on root */
+      .s1-stage {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      /* Top-left DM-Mono date-tag lockup */
+      .s1-datetag {
+        position: absolute;
+        top: 84px;
+        left: 84px;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 1;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        opacity: 0.85;
+      }
+
+      /* Centered kinetic headline block, upper-center stage */
+      .s1-headline {
+        position: absolute;
+        top: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1360px;
+        text-align: center;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 116px;
+        line-height: 1.06;
+        letter-spacing: -0.04em;
+        color: var(--brand-primary);
+      }
+      .s1-line {
+        display: block;
+      }
+      .s1-word {
+        display: inline-block;
+        transform-origin: 50% 50%;
+        will-change: transform, text-shadow;
+        margin: 0 0.14em;
+      }
+      /* Caveat hand-script numeral "5" — the ordering voice, never a numeric font */
+      .s1-numeral {
+        font-family: var(--font-script);
+        font-weight: 700;
+        font-size: 1.32em;
+        line-height: 0.8;
+        letter-spacing: 0;
+        vertical-align: -0.06em;
+      }
+
+      /* Seed + drawn stem stub, lower-center — the growth motif planted */
+      .s1-seed-wrap {
+        position: absolute;
+        top: 660px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 160px;
+        height: 200px;
+      }
+      .s1-stem {
+        position: absolute;
+        inset: 0;
+        width: 160px;
+        height: 200px;
+        overflow: visible;
+      }
+      .s1-stem path {
+        fill: none;
+        stroke: var(--brand-secondary);
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .s1-seed {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 34px;
+        height: 44px;
+        border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+        background: var(--brand-secondary);
+        box-shadow: var(--shadow-pin-compact);
+        transform-origin: 50% 50%;
+      }
+    </style>
+
+    <div class="s1-paper"></div>
+
+    <div class="s1-stage" id="s1-stage">
+      <span class="s1-datetag" id="s1-datetag">FIELD GUIDE — 05 MOVES</span>
+
+      <h1 class="s1-headline" id="s1-headline" data-layout-role="primary" data-layout-act="open">
+        <span class="s1-line">
+          <span class="s1-word" data-word="where">Where</span><span class="s1-word" data-word="do">do</span><span class="s1-word" data-word="you">you</span><span class="s1-word" data-word="begin">begin?</span>
+        </span>
+        <span class="s1-line">
+          <span class="s1-word" data-word="five"><span class="s1-numeral">5</span></span><span class="s1-word" data-word="moves">moves.</span>
+        </span>
+      </h1>
+
+      <div class="s1-seed-wrap" id="s1-seed-wrap" data-layout-role="supporting" data-layout-act="open">
+        <svg class="s1-stem" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+          <path id="s1-stem-path" d="M 80 56 C 80 96, 80 130, 80 170" />
+        </svg>
+        <div class="s1-seed" id="s1-seed"></div>
+      </div>
+    </div>
+
+    <script>
+      const EASE = {
+        entry: "power2.out",
+        emphasis: "power3.out",
+        exit: "power2.in",
+        drift: "sine.inOut",
+      };
+      const DUR = {
+        snap: 0.18,
+        med: 0.5,
+        slow: 0.95,
+      };
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const SCENE_DURATION = 4.651;
+
+      const stage = document.querySelector("#s1-stage");
+      const headline = document.querySelector("#s1-headline");
+      const words = document.querySelectorAll(".s1-word");
+      const seed = document.querySelector("#s1-seed");
+      const stemPath = document.querySelector("#s1-stem-path");
+
+      // Initial hidden states via gsap.set (not CSS opacity:0)
+      gsap.set("#s1-datetag", { opacity: 0, y: -8 });
+      gsap.set(words, { opacity: 0, y: 22, scale: 0.96 });
+      gsap.set(seed, { opacity: 0, y: -52, scale: 0.6 });
+
+      // Macro: slow drift-in on the scene root (single root-level camera move)
+      tl.fromTo(
+        stage,
+        { scale: 1.045, y: 14 },
+        { scale: 1, y: 0, duration: SCENE_DURATION, ease: EASE.entry },
+        0,
+      );
+
+      // Top-left date-tag lockup settles in first
+      tl.to("#s1-datetag", { opacity: 0.85, y: 0, duration: DUR.med, ease: EASE.entry }, 0.05);
+
+      // Kinetic typography: headline pins in word by word
+      const WORD_STAGGER = 0.16;
+      words.forEach((el, i) => {
+        tl.fromTo(
+          el,
+          { opacity: 0, y: 22, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: DUR.med, ease: EASE.emphasis },
+          0.25 + i * WORD_STAGGER,
+        );
+      });
+
+      // --- svg-path-draw: hand-drawn stem stub plants the seed ---
+      const stemLen = stemPath.getTotalLength();
+      stemPath.style.strokeDasharray = String(stemLen);
+      stemPath.style.strokeDashoffset = String(stemLen);
+      const STEM_DRAW_START = 1.95;
+      tl.to(
+        stemPath,
+        { strokeDashoffset: 0, duration: DUR.slow, ease: EASE.entry },
+        STEM_DRAW_START,
+      );
+      // Seed drops to lower-center as the stem draws beneath it
+      tl.fromTo(
+        seed,
+        { opacity: 0, y: -52, scale: 0.6 },
+        { opacity: 1, y: 0, scale: 1, duration: DUR.med, ease: EASE.emphasis },
+        STEM_DRAW_START + 0.18,
+      );
+
+      // --- asr-keyword-glow: lifts "five" (the numeral) as the narrator hits it ---
+      const TIMINGS = {
+        five: { start: 1.35, end: 1.85 },
+      };
+      const ATTACK_DUR = 0.16;
+      const RELEASE = 0.4;
+      const REST_LEVEL = 0.22;
+      const MAX_BLUR = 22;
+      const MAX_SCALE_BOOST = 0.16;
+      const PEAK_RGB = { r: 224, g: 162, b: 59 }; // brand-primary amber, the live focal
+      const REST_RGB = { r: 224, g: 162, b: 59 };
+
+      function envelope(time, start, end) {
+        const releaseEnd = end + RELEASE;
+        if (time < start) return 0;
+        if (time < end) return Math.min((time - start) / ATTACK_DUR, 1);
+        if (time < releaseEnd) {
+          const decay = (time - end) / RELEASE;
+          return 1 - decay * (1 - REST_LEVEL);
+        }
+        return REST_LEVEL;
+      }
+      function glowRgba(env) {
+        return "rgba(" + PEAK_RGB.r + "," + PEAK_RGB.g + "," + PEAK_RGB.b + "," + (0.0 + env * 0.85) + ")";
+      }
+
+      // --- sine-wave-loop: only the pinned headline breathes after entry settles ---
+      const IDLE_START = 1.45; // after the first line of words has settled
+      const IDLE_DUR = SCENE_DURATION - IDLE_START;
+      const CYCLES = 1.4; // ~2.3s per breath across a short idle
+      const SCALE_AMP = 0.01;
+      const Y_AMP = 2.5;
+
+      const driver = { t: 0 };
+      tl.to(
+        driver,
+        {
+          t: SCENE_DURATION,
+          duration: SCENE_DURATION,
+          ease: "none",
+          onUpdate: () => {
+            const t = driver.t;
+
+            // asr-keyword-glow on flagged words
+            words.forEach((el) => {
+              const key = el.dataset.word;
+              const timing = TIMINGS[key];
+              if (!timing) return;
+              const env = envelope(t, timing.start, timing.end);
+              const blur = MAX_BLUR * env;
+              const sc = 1 + MAX_SCALE_BOOST * env;
+              el.style.textShadow = "0 0 " + blur + "px " + glowRgba(env);
+              el.style.transform = "scale(" + sc + ")";
+            });
+
+            // sine breathing on the headline block (composes; additive y/scale)
+            if (t >= IDLE_START) {
+              const p = ((t - IDLE_START) / IDLE_DUR) * Math.PI * 2 * CYCLES;
+              const by = Math.sin(p) * Y_AMP;
+              const bs = 1 + Math.sin(p) * SCALE_AMP;
+              headline.style.transform = "translateX(-50%) translateY(" + by + "px) scale(" + bs + ")";
+            }
+          },
+        },
+        0,
+      );
+
+      window.__timelines["scene_1"] = tl;
+    </script>
+  </div>
+</template>

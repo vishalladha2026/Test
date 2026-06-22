@@ -1,0 +1,525 @@
+<template id="group_w3-template">
+  <div id="root" class="group_w3-root" data-composition-id="group_w3" data-width="1920" data-height="1080" data-duration="11.264" data-layout-allow-overflow="true" style="position:relative; width:1920px; height:1080px; overflow:hidden;">
+    <style>
+      #root {
+        background: var(--surface-paper);
+        font-family: var(--font-body);
+      }
+      #root *,
+      #root *::before,
+      #root *::after {
+        box-sizing: border-box;
+      }
+
+      /* paper grain overlay (foundational atmosphere) */
+      .g3-paper-grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.35;
+        mix-blend-mode: multiply;
+        background-image: var(--paper-grain);
+      }
+
+      /* content sits above grain */
+      .g3-stage {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+      }
+
+      /* macro-camera wrappers (coordinate-target-zoom for scene_5 push) */
+      .g3-zoom-outer {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        transform-origin: 50% 50%;
+        will-change: transform;
+      }
+      .g3-zoom-inner {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        will-change: transform;
+      }
+
+      /* ---- top chrome ---- */
+      .s5-chip {
+        position: absolute;
+        top: 64px;
+        left: 64px;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 1;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+      }
+      .s6-chip {
+        position: absolute;
+        top: 64px;
+        left: 64px;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 1;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+      }
+
+      /* ---- scene 5: coin + market grid ---- */
+      .s5-coin {
+        position: absolute;
+        left: 910px;
+        top: 470px;
+        width: 100px;
+        height: 100px;
+        will-change: transform, opacity;
+      }
+      .s5-grid {
+        position: absolute;
+        left: 432px;
+        top: 250px;
+        width: 1056px;
+        height: 560px;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        gap: 14px;
+      }
+      .s5-tile {
+        background: var(--surface-cream);
+        border: var(--border-hairline);
+        border-radius: var(--radius-card);
+        display: grid;
+        place-items: center;
+        will-change: transform, opacity;
+      }
+      .s5-tile-icon {
+        width: 46px;
+        height: 46px;
+      }
+
+      /* fee counter — upper-center, clear of caption band */
+      .s5-counter-wrap {
+        position: absolute;
+        top: 88px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+        width: 640px;
+      }
+      .s5-counter-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 6px;
+      }
+      .s5-counter {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 92px;
+        line-height: 1;
+        letter-spacing: -2px;
+        color: var(--brand-tertiary);
+        font-variant-numeric: tabular-nums;
+      }
+      .s5-counter-suffix {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 56px;
+        color: var(--brand-tertiary);
+      }
+      .s5-counter-label {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 24px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+      }
+
+      /* ---- scene 6: calendar ---- */
+      .s6-calendar {
+        position: absolute;
+        left: 96px;
+        top: 150px;
+        width: 360px;
+        height: 380px;
+        background: var(--surface-cream);
+        border: var(--border-hairline);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-pin-standard);
+        padding: 22px;
+        will-change: transform, opacity;
+      }
+      .s6-cal-title {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 24px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        margin-bottom: 16px;
+      }
+      .s6-cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+      }
+      .s6-cal-cell {
+        aspect-ratio: 1 / 1;
+        border: var(--border-dashed);
+        border-radius: 3px;
+        display: grid;
+        place-items: center;
+      }
+      .s6-cal-coin {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--brand-primary);
+        opacity: 0;
+        will-change: opacity, transform;
+      }
+
+      .s6-step-numeral {
+        position: absolute;
+        left: 96px;
+        top: 560px;
+        font-family: var(--font-script);
+        font-weight: 700;
+        font-size: 120px;
+        line-height: 0.85;
+        color: var(--brand-secondary);
+        will-change: opacity, transform;
+      }
+      .s6-step-label {
+        position: absolute;
+        left: 230px;
+        top: 600px;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        will-change: opacity;
+      }
+
+      /* ---- persistent growth protagonist (curve + seedling/tree) ---- */
+      .g3-curve-svg {
+        position: absolute;
+        left: 560px;
+        top: 300px;
+        width: 1100px;
+        height: 520px;
+        overflow: visible;
+        will-change: opacity;
+      }
+      .g3-plant-svg {
+        position: absolute;
+        left: 900px;
+        top: 470px;
+        width: 360px;
+        height: 400px;
+        transform-origin: 50% 100%;
+        will-change: transform, opacity;
+      }
+    </style>
+
+    <div class="g3-paper-grain" aria-hidden="true"></div>
+
+    <div class="g3-stage">
+      <!-- top chrome -->
+      <div class="s5-chip" id="s5-chip">The whole market · low cost</div>
+      <div class="s6-chip" id="s6-chip">Automate · let it grow</div>
+
+      <!-- ===== SCENE 5: macro-camera zoom into coin -> market grid ===== -->
+      <div class="g3-zoom-outer" id="g3-zoom-outer" data-layout-allow-overflow="true">
+        <div class="g3-zoom-inner" id="g3-zoom-inner" data-layout-allow-overflow="true">
+          <!-- the amber coin that fans out -->
+          <svg class="s5-coin" id="s5-coin" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow="true">
+            <circle cx="50" cy="50" r="46" fill="var(--brand-primary)" stroke="var(--surface-paper)" stroke-width="3" />
+            <circle cx="50" cy="50" r="34" fill="none" stroke="var(--surface-cream)" stroke-width="3" opacity="0.7" />
+            <line x1="50" y1="30" x2="50" y2="70" stroke="var(--surface-cream)" stroke-width="6" stroke-linecap="round" />
+            <line x1="38" y1="40" x2="62" y2="40" stroke="var(--surface-cream)" stroke-width="5" stroke-linecap="round" />
+          </svg>
+
+          <!-- the market grid (64 tiny company tiles) -->
+          <div class="s5-grid" id="s5-grid" data-layout-role="primary" data-layout-act="scene_5" data-layout-allow-overflow="true"></div>
+        </div>
+      </div>
+
+      <!-- fee counter -->
+      <div class="s5-counter-wrap" id="s5-counter-wrap" data-layout-allow-overflow="true">
+        <div class="s5-counter-row">
+          <span class="s5-counter" id="s5-counter">52</span><span class="s5-counter-suffix">%</span>
+        </div>
+        <div class="s5-counter-label">Annual fee</div>
+      </div>
+
+      <!-- ===== SCENE 6: calendar + step + persistent growth ===== -->
+      <div class="s6-calendar" id="s6-calendar" data-layout-role="supporting" data-layout-act="scene_6" data-layout-allow-overflow="true">
+        <div class="s6-cal-title">Every month</div>
+        <div class="s6-cal-grid" id="s6-cal-grid"></div>
+      </div>
+
+      <div class="s6-step-numeral" id="s6-step-numeral">5</div>
+      <div class="s6-step-label" id="s6-step-label">Step 05</div>
+
+      <!-- persistent compounding curve (drawn in scene 6) -->
+      <svg class="g3-curve-svg" id="g3-curve-svg" viewBox="0 0 1100 520" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" data-layout-allow-overflow="true">
+        <path id="g3-curve-path" d="M 20 500 C 360 490 620 430 800 300 C 920 215 1010 110 1080 30" fill="none" stroke="var(--brand-secondary)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+
+      <!-- persistent growth motif: seedling (scene 5) -> tree (scene 6) -->
+      <svg class="g3-plant-svg" id="g3-plant-svg" viewBox="0 0 360 400" xmlns="http://www.w3.org/2000/svg" data-layout-role="primary" data-layout-act="growth" data-layout-allow-overflow="true">
+        <!-- soil line -->
+        <line x1="120" y1="372" x2="240" y2="372" stroke="var(--brand-primary)" stroke-width="6" stroke-linecap="round" />
+        <!-- trunk/stem -->
+        <path id="g3-plant-stem" d="M 180 372 L 180 200" fill="none" stroke="var(--brand-secondary)" stroke-width="12" stroke-linecap="round" />
+        <!-- seedling leaves (present early) -->
+        <path id="g3-leaf-l" d="M 180 250 C 150 240 130 250 120 268 C 144 274 168 268 180 252 Z" fill="var(--brand-secondary)" />
+        <path id="g3-leaf-r" d="M 180 240 C 210 230 230 240 240 258 C 216 264 192 258 180 242 Z" fill="var(--brand-secondary)" />
+        <!-- tree canopy (revealed in scene 6) -->
+        <g id="g3-canopy">
+          <circle cx="180" cy="150" r="78" fill="var(--brand-secondary)" />
+          <circle cx="120" cy="190" r="52" fill="var(--brand-secondary)" />
+          <circle cx="240" cy="190" r="52" fill="var(--brand-secondary)" />
+          <circle cx="180" cy="110" r="56" fill="var(--deco-2)" opacity="0.55" />
+        </g>
+      </svg>
+    </div>
+
+    <script>
+      const EASE = {
+        entry: "power2.out",
+        emphasis: "power3.out",
+        exit: "power2.in",
+        drift: "sine.inOut",
+      };
+      const DUR = { snap: 0.18, med: 0.5, slow: 0.95 };
+
+      const T = { scene_5: 0, scene_6: 5.845 };
+      const W = 1920, H = 1080;
+
+      window.__timelines = window.__timelines || {};
+
+      (async () => {
+        if (document.fonts && document.fonts.ready) {
+          try { await document.fonts.ready; } catch (e) {}
+        }
+
+        // ---- build market grid tiles (scene 5) ----
+        const grid = document.getElementById("s5-grid");
+        const TILE_COUNT = 48;
+        for (let i = 0; i < TILE_COUNT; i++) {
+          const tile = document.createElement("div");
+          tile.className = "s5-tile";
+          // svg-icon-enrichment: tiny "company" glyph inside each tile
+          const ns = "http://www.w3.org/2000/svg";
+          const svg = document.createElementNS(ns, "svg");
+          svg.setAttribute("class", "s5-tile-icon");
+          svg.setAttribute("viewBox", "0 0 24 24");
+          const bar1 = document.createElementNS(ns, "rect");
+          bar1.setAttribute("x", "5"); bar1.setAttribute("y", "13");
+          bar1.setAttribute("width", "3.4"); bar1.setAttribute("height", "7");
+          bar1.setAttribute("rx", "1"); bar1.setAttribute("fill", "var(--brand-primary)");
+          const bar2 = document.createElementNS(ns, "rect");
+          bar2.setAttribute("x", "10.3"); bar2.setAttribute("y", "9");
+          bar2.setAttribute("width", "3.4"); bar2.setAttribute("height", "11");
+          bar2.setAttribute("rx", "1"); bar2.setAttribute("fill", "var(--brand-secondary)");
+          const bar3 = document.createElementNS(ns, "rect");
+          bar3.setAttribute("x", "15.6"); bar3.setAttribute("y", "6");
+          bar3.setAttribute("width", "3.4"); bar3.setAttribute("height", "14");
+          bar3.setAttribute("rx", "1"); bar3.setAttribute("fill", "var(--brand-primary)");
+          svg.appendChild(bar1); svg.appendChild(bar2); svg.appendChild(bar3);
+          tile.appendChild(svg);
+          grid.appendChild(tile);
+        }
+
+        // ---- build calendar cells (scene 6) ----
+        const calGrid = document.getElementById("s6-cal-grid");
+        const CAL_CELLS = 28;
+        const coinCells = [];
+        for (let i = 0; i < CAL_CELLS; i++) {
+          const cell = document.createElement("div");
+          cell.className = "s6-cal-cell";
+          // a coin drops on the last day of each week (cols 6,13,20,27)
+          if (i % 7 === 6) {
+            const coin = document.createElement("div");
+            coin.className = "s6-cal-coin";
+            cell.appendChild(coin);
+            coinCells.push(coin);
+          }
+          calGrid.appendChild(cell);
+        }
+
+        // ===== measure zoom target (the grid) AFTER fonts ready =====
+        const target = document.getElementById("s5-grid");
+        const r = target.getBoundingClientRect();
+        const TARGET_OFFSET_X = r.left + r.width / 2 - W / 2;
+        const TARGET_OFFSET_Y = r.top + r.height / 2 - H / 2;
+        const counterX = -TARGET_OFFSET_X;
+        const counterY = -TARGET_OFFSET_Y;
+        // headroom cap: keep target <= ~88% canvas at peak
+        const maxScale = Math.min((0.88 * W) / r.width, (0.88 * H) / r.height);
+        const ZOOM_SCALE = Math.min(1.18, maxScale);
+
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- initial hidden states (gsap.set, not CSS opacity:0) ----
+        gsap.set("#s5-grid", { opacity: 0 });
+        gsap.set(".s5-tile", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" });
+        gsap.set("#s5-coin", { opacity: 0, scale: 0.6, transformOrigin: "50% 50%" });
+        gsap.set("#s5-chip", { opacity: 0 });
+        gsap.set("#s5-counter-wrap", { opacity: 0 });
+        document.getElementById("s5-counter").style.fontSize = "64px";
+        gsap.set("#g3-zoom-outer", { scale: 1, transformOrigin: "50% 50%" });
+        gsap.set("#g3-zoom-inner", { x: 0, y: 0 });
+
+        // scene 6 elements hidden until scene 6 segment
+        gsap.set("#s6-chip", { opacity: 0 });
+        gsap.set("#s6-calendar", { opacity: 0, y: 12 });
+        gsap.set("#s6-step-numeral", { opacity: 0, y: 16, transformOrigin: "0% 100%" });
+        gsap.set("#s6-step-label", { opacity: 0 });
+        gsap.set(".s6-cal-coin", { opacity: 0 });
+
+        // persistent protagonist initial states
+        // curve hidden (draws in scene 6)
+        const curvePath = document.getElementById("g3-curve-path");
+        const curveLen = curvePath.getTotalLength();
+        curvePath.style.strokeDasharray = String(curveLen);
+        curvePath.style.strokeDashoffset = String(curveLen);
+        gsap.set("#g3-curve-svg", { opacity: 0 });
+        // plant: seedling visible (small), canopy hidden, tree grows later
+        gsap.set("#g3-plant-svg", { opacity: 0, scale: 0.0, transformOrigin: "50% 100%" });
+        gsap.set("#g3-canopy", { opacity: 0, scale: 0.2, transformOrigin: "50% 100%" });
+
+        // =====================================================
+        // SCENE 5 — coin punches in, fans into market grid
+        // =====================================================
+        // chip in
+        tl.to("#s5-chip", { opacity: 1, duration: DUR.med, ease: EASE.entry }, T.scene_5 + 0.1);
+
+        // coin appears + pulse-in (svg-icon-enrichment lives below; this is the punch)
+        tl.fromTo("#s5-coin",
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: DUR.med, ease: EASE.emphasis },
+          T.scene_5 + 0.2);
+
+        // seedling pinned quietly on lower stage during scene 5 (continuity carry)
+        tl.fromTo("#g3-plant-svg",
+          { opacity: 0, scale: 0.0 },
+          { opacity: 0.9, scale: 0.42, duration: DUR.slow, ease: EASE.entry },
+          T.scene_5 + 0.4);
+
+        // coin fans out: grid container appears, coin recedes
+        tl.to("#s5-coin", { opacity: 0, scale: 1.6, duration: DUR.med, ease: EASE.exit }, T.scene_5 + 1.15);
+        tl.to("#s5-grid", { opacity: 1, duration: DUR.snap, ease: "none" }, T.scene_5 + 1.2);
+        // svg-icon-enrichment: tiles ripple alive as the grid fills
+        tl.to(".s5-tile",
+          { opacity: 1, scale: 1, duration: 0.45, ease: EASE.emphasis,
+            stagger: { each: 0.012, grid: [6, 8], from: "center" } },
+          T.scene_5 + 1.25);
+
+        // coordinate-target-zoom: continued push-in resolving to a hold
+        tl.to("#g3-zoom-outer", { scale: ZOOM_SCALE, duration: DUR.slow, ease: "power3.inOut" }, T.scene_5 + 1.6);
+        tl.to("#g3-zoom-inner", { x: counterX, y: counterY, duration: DUR.slow, ease: "power3.inOut" }, T.scene_5 + 1.6);
+
+        // fee counter in (upper-center), counts DOWN toward zero w/ dynamic scale
+        tl.to("#s5-counter-wrap", { opacity: 1, duration: DUR.med, ease: EASE.entry }, T.scene_5 + 1.4);
+        const counterEl = document.getElementById("s5-counter");
+        const feeState = { value: 52, fontSize: 64 };
+        tl.to(feeState,
+          { value: 3, fontSize: 100, duration: 1.6, ease: "power3.out",
+            onUpdate: () => {
+              counterEl.textContent = Math.round(feeState.value);
+              counterEl.style.fontSize = feeState.fontSize + "px";
+            } },
+          T.scene_5 + 2.2);
+
+        // stillness-before-climax (~0.5s): grid full, counter freezes just shy of zero
+        // (gap with no tween 3.8 -> 4.3), then snap to final low fee
+        tl.to(feeState,
+          { value: 0, fontSize: 100, duration: DUR.snap, ease: EASE.emphasis,
+            onUpdate: () => {
+              counterEl.textContent = Math.round(feeState.value);
+              counterEl.style.fontSize = feeState.fontSize + "px";
+            } },
+          T.scene_5 + 4.35);
+
+        // hold on completed market grid until the dissolve to scene 6
+        // dissolve scene-5-only support out at the seam
+        tl.to(["#s5-grid", "#s5-counter-wrap", "#s5-coin", "#s5-chip"],
+          { opacity: 0, duration: DUR.med, ease: EASE.exit }, T.scene_6 - 0.35);
+        // ease the camera back toward a slight wide so the scene-6 dolly-out continues smoothly
+        tl.to("#g3-zoom-outer", { scale: 1.06, duration: DUR.med, ease: EASE.exit }, T.scene_6 - 0.35);
+        tl.to("#g3-zoom-inner", { x: 0, y: 0, duration: DUR.med, ease: EASE.exit }, T.scene_6 - 0.35);
+
+        // =====================================================
+        // SCENE 6 — calendar drops coins, seedling -> tree, curve rises
+        // =====================================================
+        tl.to("#s6-chip", { opacity: 1, duration: DUR.med, ease: EASE.entry }, T.scene_6 + 0.05);
+        tl.to("#s6-calendar", { opacity: 1, y: 0, duration: DUR.med, ease: EASE.entry }, T.scene_6 + 0.1);
+        tl.to("#s6-step-numeral", { opacity: 1, y: 0, duration: DUR.med, ease: EASE.emphasis }, T.scene_6 + 0.2);
+        tl.to("#s6-step-label", { opacity: 1, duration: DUR.med, ease: EASE.entry }, T.scene_6 + 0.35);
+
+        // dynamic-content-sequencing: coin drops paced by content (week index), not hard counts
+        // drop coins one per recurring cycle; pace via a sequenced start array
+        const BASE = 0.45, SEC_PER_UNIT = 0.18;
+        let cum = T.scene_6 + 0.5;
+        coinCells.forEach((coin, i) => {
+          const dur = BASE + i * SEC_PER_UNIT * 0.0; // uniform cadence; metronomic monthly pulse
+          tl.fromTo(coin,
+            { opacity: 0, y: -22 },
+            { opacity: 1, y: 0, duration: 0.32, ease: EASE.emphasis },
+            cum);
+          cum += BASE; // metronomic spacing between recurring drops
+        });
+
+        // persistent seedling promotes to its scene-6 pose, then grows into a tree
+        tl.to("#g3-plant-svg", { opacity: 1, scale: 0.62, duration: DUR.med, ease: EASE.entry }, T.scene_6 + 0.3);
+        tl.to("#g3-plant-svg", { scale: 0.92, duration: DUR.slow, ease: EASE.emphasis }, T.scene_6 + 0.9);
+        // canopy fills in (seedling -> full tree)
+        tl.to("#g3-canopy", { opacity: 1, scale: 1, duration: DUR.slow, ease: EASE.emphasis }, T.scene_6 + 1.1);
+
+        // svg-path-draw: green compounding curve rises behind the tree
+        tl.to("#g3-curve-svg", { opacity: 1, duration: DUR.snap, ease: "none" }, T.scene_6 + 1.0);
+        tl.to(curvePath, { strokeDashoffset: 0, duration: 1.7, ease: "power2.out" }, T.scene_6 + 1.05);
+
+        // macro motion: slow dolly-out to reveal the grown curve
+        const dollyStart = T.scene_6 + 0.2;
+        tl.to("#g3-zoom-outer",
+          { scale: 1.0, duration: 3.0, ease: "power2.inOut" },
+          dollyStart);
+
+        // sine-wave-loop: ONLY the finished tree breathes (subtle)
+        const plant = document.getElementById("g3-plant-svg");
+        const idleStart = T.scene_6 + 2.4;
+        const idleDur = (T.scene_5 === 0 ? 11.264 : 11.264) - idleStart;
+        const phase = { p: 0 };
+        const CYCLES = Math.max(1, idleDur / 3);
+        tl.to(phase,
+          { p: Math.PI * 2 * CYCLES, duration: idleDur, ease: "none",
+            onUpdate: () => {
+              const s = 0.92 * (1 + Math.sin(phase.p) * 0.012);
+              const y = Math.sin(phase.p) * 2.5;
+              plant.style.transform = "translateY(" + y + "px) scale(" + s + ")";
+            } },
+          idleStart);
+
+        window.__timelines["group_w3"] = tl;
+      })();
+    </script>
+  </div>
+</template>

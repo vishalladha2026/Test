@@ -1,0 +1,737 @@
+<template id="group_w2-template">
+  <div id="root" class="group_w2-root" data-composition-id="group_w2" data-width="1920" data-height="1080" data-duration="18.581" data-layout-allow-overflow="true" style="position:relative; width:1920px; height:1080px; overflow:hidden;">
+    <style>
+      #root {
+        background: var(--surface-paper);
+        font-family: var(--font-body);
+      }
+      #root *,
+      #root *::before,
+      #root *::after {
+        box-sizing: border-box;
+      }
+
+      /* full-bleed paper grain (decorative, background) */
+      .g2-grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.3;
+        mix-blend-mode: multiply;
+        background-image: var(--paper-grain);
+      }
+
+      /* macro-camera stage wrapper — one slow drift/push per segment lives here */
+      .g2-stage {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        transform-origin: 50% 50%;
+        will-change: transform;
+        perspective: 1800px;
+      }
+
+      /* ---- shared persistent eyebrow / numeral lockup (top-left chrome) ---- */
+      .g2-lockup {
+        position: absolute;
+        top: 96px;
+        left: 96px;
+        display: flex;
+        align-items: flex-end;
+        gap: 22px;
+        z-index: 4;
+      }
+      .g2-numeral {
+        font-family: var(--font-script);
+        font-weight: 700;
+        font-size: 132px;
+        line-height: 0.8;
+        color: var(--brand-primary);
+      }
+      .g2-eyebrow {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        padding-bottom: 14px;
+      }
+      /* stacked numeral states (prebuilt, crossfaded — no textContent mutation) */
+      .g2-num-layer {
+        position: relative;
+      }
+      .g2-num-stack {
+        position: relative;
+        width: 90px;
+        height: 132px;
+      }
+      .g2-num-stack .g2-numeral {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+      .g2-eyebrow-stack {
+        position: relative;
+        height: 40px;
+        min-width: 150px;
+      }
+      .g2-eyebrow-stack .g2-eyebrow {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding-bottom: 0;
+      }
+
+      /* ---------- shared persistent seedling (the carried protagonist) ---------- */
+      /* center-low, lower edge well above the 880 caption keep-out line */
+      .g2-seedling-wrap {
+        position: absolute;
+        left: 50%;
+        top: 560px;
+        width: 220px;
+        height: 280px;
+        margin-left: -110px;
+        z-index: 5;
+        will-change: transform;
+        transform-origin: 50% 100%;
+      }
+      .g2-seedling-svg {
+        width: 220px;
+        height: 280px;
+        display: block;
+        overflow: visible;
+      }
+
+      /* ===================== SCENE 2 — goal cards + timeline arrow ===================== */
+      .s2-cards {
+        position: absolute;
+        left: 0;
+        top: 150px;
+        width: 1920px;
+        height: 360px;
+        z-index: 3;
+      }
+      .s2-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 340px;
+        margin: 0;
+        transform: translate(-50%, -50%);
+        background: var(--surface-cream);
+        border: var(--border-hairline);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-pin-standard);
+        padding: 30px 26px 26px;
+        color: var(--brand-primary);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        will-change: transform;
+      }
+      .s2-card.alt {
+        background: var(--surface-paper-2);
+      }
+      .s2-card-num {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 24px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        opacity: 0.65;
+        line-height: 1;
+      }
+      .s2-card-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 38px;
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        margin: 0;
+        color: var(--brand-primary);
+      }
+      .s2-card-body {
+        font-family: var(--font-body);
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 1.4;
+        margin: 0;
+        color: var(--brand-primary);
+      }
+      .s2-card-pin {
+        position: absolute;
+        top: -18px;
+        left: 28px;
+        color: var(--brand-primary);
+      }
+      .s2-arrow {
+        position: absolute;
+        left: 260px;
+        top: 540px;
+        width: 1400px;
+        height: 120px;
+        z-index: 3;
+        overflow: visible;
+      }
+      .s2-arrow path,
+      .s2-arrow line {
+        fill: none;
+        stroke: var(--brand-primary);
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .s2-arrow-note {
+        position: absolute;
+        left: 690px;
+        top: 600px;
+        font-family: var(--font-script);
+        font-weight: 600;
+        font-size: 34px;
+        line-height: 1.05;
+        color: var(--brand-primary);
+        transform: rotate(-2deg);
+        transform-origin: left top;
+        z-index: 3;
+      }
+
+      /* ===================== SCENE 3 — jar fill + debt thread ===================== */
+      .s3-jar {
+        position: absolute;
+        left: 470px;
+        top: 250px;
+        width: 320px;
+        height: 420px;
+        z-index: 3;
+        overflow: visible;
+      }
+      .s3-jar-svg {
+        width: 320px;
+        height: 420px;
+        display: block;
+        overflow: visible;
+      }
+      .s3-jar-fill {
+        transform-box: fill-box;
+        transform-origin: 50% 100%;
+      }
+      .s3-jar-label {
+        position: absolute;
+        left: 470px;
+        top: 200px;
+        width: 320px;
+        text-align: center;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        z-index: 3;
+      }
+      .s3-debt {
+        position: absolute;
+        left: 1080px;
+        top: 300px;
+        width: 520px;
+        height: 320px;
+        z-index: 3;
+        overflow: visible;
+      }
+      .s3-debt-svg {
+        width: 520px;
+        height: 320px;
+        display: block;
+        overflow: visible;
+      }
+      .s3-debt-thread,
+      .s3-debt-slack {
+        fill: none;
+        stroke: var(--brand-tertiary);
+        stroke-width: 7;
+        stroke-linecap: round;
+      }
+      .s3-scissor line {
+        stroke: var(--brand-primary);
+        stroke-width: 6;
+        stroke-linecap: round;
+      }
+      .s3-scissor circle {
+        fill: none;
+        stroke: var(--brand-primary);
+        stroke-width: 5;
+      }
+      .s3-debt-note {
+        position: absolute;
+        left: 1130px;
+        top: 250px;
+        font-family: var(--font-script);
+        font-weight: 600;
+        font-size: 32px;
+        color: var(--brand-tertiary);
+        transform: rotate(-2deg);
+        transform-origin: left top;
+        z-index: 3;
+      }
+
+      /* ===================== SCENE 4 — account folders + stamp ===================== */
+      .s4-stage {
+        position: absolute;
+        left: 0;
+        top: 130px;
+        width: 1920px;
+        height: 420px;
+        z-index: 3;
+        transform-style: preserve-3d;
+      }
+      .s4-folder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 320px;
+        height: 240px;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+      .s4-folder-tab {
+        position: absolute;
+        top: -34px;
+        left: 24px;
+        width: 150px;
+        height: 38px;
+        background: var(--surface-paper-3);
+        border: var(--border-hairline);
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+      }
+      .s4-folder-body {
+        position: absolute;
+        inset: 0;
+        background: var(--surface-cream);
+        border: var(--border-hairline);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-pin-standard);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 28px;
+      }
+      .s4-folder-label {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--brand-primary);
+      }
+      .s4-folder-sub {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 22px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        color: var(--brand-primary);
+      }
+      .s4-stamp {
+        position: absolute;
+        display: inline-block;
+        border: var(--border-stamp);
+        color: var(--brand-accent);
+        background: transparent;
+        padding: 8px 18px;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 1;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        border-radius: 0;
+        z-index: 6;
+        will-change: transform;
+        transform-origin: 50% 50%;
+      }
+    </style>
+
+    <!-- background atmosphere -->
+    <div class="g2-grain" aria-hidden="true"></div>
+
+    <!-- persistent top-left step lockup: hand-script numeral + mono eyebrow, prebuilt crossfaded states -->
+    <div class="g2-lockup" id="g2-lockup" data-layout-allow-overflow="true">
+      <div class="g2-num-stack">
+        <span class="g2-numeral" id="g2-num-1">1</span>
+        <span class="g2-numeral" id="g2-num-2">2</span>
+        <span class="g2-numeral" id="g2-num-3">3</span>
+      </div>
+      <div class="g2-eyebrow-stack">
+        <span class="g2-eyebrow" id="g2-eb-1">Step 01</span>
+        <span class="g2-eyebrow" id="g2-eb-2">Step 02</span>
+        <span class="g2-eyebrow" id="g2-eb-3">Step 03</span>
+      </div>
+    </div>
+
+    <!-- macro-camera stage: holds the segment content + the persistent seedling -->
+    <div class="g2-stage" id="g2-stage" data-layout-allow-overflow="true">
+
+      <!-- ====== SCENE 2 content ====== -->
+      <div class="s2-cards" id="s2-cards" data-layout-role="primary" data-layout-act="scene_2" data-layout-allow-overflow="true">
+        <div class="s2-card" id="s2-card-0" data-target-x="-540" data-target-y="0" data-layout-allow-overflow="true">
+          <svg class="s2-card-pin pp-safety-pin" viewBox="0 0 360 110" width="110" height="30" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M312 38 C 296 32, 290 50, 304 58 C 320 66, 340 60, 342 44 C 344 28, 322 18, 300 24" />
+              <path d="M300 24 C 240 14, 140 14, 70 30" />
+              <path d="M312 56 C 250 78, 150 82, 80 70" />
+              <ellipse cx="58" cy="50" rx="24" ry="14" />
+            </g>
+          </svg>
+          <span class="s2-card-num">GOAL 01</span>
+          <h3 class="s2-card-title">Retirement</h3>
+          <p class="s2-card-body">The long horizon.</p>
+        </div>
+        <div class="s2-card alt" id="s2-card-1" data-target-x="0" data-target-y="0" data-layout-allow-overflow="true">
+          <svg class="s2-card-pin pp-safety-pin" viewBox="0 0 360 110" width="110" height="30" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M312 38 C 296 32, 290 50, 304 58 C 320 66, 340 60, 342 44 C 344 28, 322 18, 300 24" />
+              <path d="M300 24 C 240 14, 140 14, 70 30" />
+              <path d="M312 56 C 250 78, 150 82, 80 70" />
+              <ellipse cx="58" cy="50" rx="24" ry="14" />
+            </g>
+          </svg>
+          <span class="s2-card-num">GOAL 02</span>
+          <h3 class="s2-card-title">A home</h3>
+          <p class="s2-card-body">Roots and walls.</p>
+        </div>
+        <div class="s2-card" id="s2-card-2" data-target-x="540" data-target-y="0" data-layout-allow-overflow="true">
+          <svg class="s2-card-pin pp-safety-pin" viewBox="0 0 360 110" width="110" height="30" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M312 38 C 296 32, 290 50, 304 58 C 320 66, 340 60, 342 44 C 344 28, 322 18, 300 24" />
+              <path d="M300 24 C 240 14, 140 14, 70 30" />
+              <path d="M312 56 C 250 78, 150 82, 80 70" />
+              <ellipse cx="58" cy="50" rx="24" ry="14" />
+            </g>
+          </svg>
+          <span class="s2-card-num">GOAL 03</span>
+          <h3 class="s2-card-title">Freedom</h3>
+          <p class="s2-card-body">Time of your own.</p>
+        </div>
+      </div>
+
+      <svg class="s2-arrow" id="s2-arrow" viewBox="0 0 1400 120" data-layout-allow-overflow="true" aria-hidden="true">
+        <path id="s2-arrow-line" d="M 20 60 L 1320 60" />
+        <path id="s2-arrow-head" d="M 1280 28 L 1340 60 L 1280 92" />
+      </svg>
+      <div class="s2-arrow-note" id="s2-arrow-note" data-layout-allow-overflow="true">this sets your horizon</div>
+
+      <!-- ====== SCENE 3 content ====== -->
+      <div class="s3-jar-label" id="s3-jar-label" data-layout-allow-overflow="true">SAFETY NET</div>
+      <svg class="s3-jar" id="s3-jar" viewBox="0 0 320 420" data-layout-role="primary" data-layout-act="scene_3" data-layout-allow-overflow="true" aria-hidden="true">
+        <!-- jar body -->
+        <rect x="60" y="70" width="200" height="320" rx="22" fill="var(--surface-cream)" stroke="var(--brand-primary)" stroke-width="5" />
+        <rect x="92" y="40" width="136" height="40" rx="10" fill="var(--surface-cream)" stroke="var(--brand-primary)" stroke-width="5" />
+        <!-- green fill, scales up from bottom -->
+        <clipPath id="s3-jar-clip"><rect x="65" y="75" width="190" height="310" rx="18" /></clipPath>
+        <g clip-path="url(#s3-jar-clip)">
+          <rect class="s3-jar-fill" id="s3-jar-fill" x="65" y="75" width="190" height="310" fill="var(--brand-secondary)" />
+        </g>
+        <!-- "safe" line marker -->
+        <line x1="50" y1="140" x2="270" y2="140" stroke="var(--brand-primary)" stroke-width="3" stroke-dasharray="8 8" />
+      </svg>
+
+      <div class="s3-debt-note" id="s3-debt-note" data-layout-allow-overflow="true">snip the drag</div>
+      <svg class="s3-debt" id="s3-debt" viewBox="0 0 520 320" data-layout-act="scene_3" data-layout-allow-overflow="true" aria-hidden="true">
+        <!-- taut frayed debt thread -->
+        <path class="s3-debt-thread" id="s3-debt-thread" d="M 20 120 L 500 120" />
+        <!-- slack ends shown after cut (hidden initially) -->
+        <path class="s3-debt-slack" id="s3-debt-slack-l" d="M 20 120 L 230 120 C 250 130, 255 165, 240 200" />
+        <path class="s3-debt-slack" id="s3-debt-slack-r" d="M 500 120 L 290 120 C 270 130, 265 165, 280 200" />
+        <!-- scissor -->
+        <g class="s3-scissor" id="s3-scissor">
+          <circle cx="232" cy="60" r="14" />
+          <circle cx="288" cy="60" r="14" />
+          <line id="s3-blade-a" x1="244" y1="68" x2="280" y2="120" />
+          <line id="s3-blade-b" x1="276" y1="68" x2="240" y2="120" />
+        </g>
+      </svg>
+
+      <!-- ====== SCENE 4 content ====== -->
+      <div class="s4-stage" id="s4-stage" data-layout-role="primary" data-layout-act="scene_4" data-layout-allow-overflow="true">
+        <div class="s4-folder" id="s4-folder-0" data-angle="200" data-target-x="-560" data-target-y="20" data-layout-allow-overflow="true">
+          <div class="s4-folder-tab"></div>
+          <div class="s4-folder-body">
+            <span class="s4-folder-label">401(k)</span>
+            <span class="s4-folder-sub">Employer plan</span>
+          </div>
+        </div>
+        <div class="s4-folder" id="s4-folder-1" data-angle="270" data-target-x="0" data-target-y="-10" data-layout-allow-overflow="true">
+          <div class="s4-folder-tab"></div>
+          <div class="s4-folder-body">
+            <span class="s4-folder-label">IRA</span>
+            <span class="s4-folder-sub">Your own</span>
+          </div>
+        </div>
+        <div class="s4-folder" id="s4-folder-2" data-angle="340" data-target-x="560" data-target-y="20" data-layout-allow-overflow="true">
+          <div class="s4-folder-tab"></div>
+          <div class="s4-folder-body">
+            <span class="s4-folder-label">Brokerage</span>
+            <span class="s4-folder-sub">Anytime</span>
+          </div>
+        </div>
+      </div>
+      <span class="s4-stamp" id="s4-stamp" data-layout-act="scene_4" data-layout-allow-overflow="true" style="left:760px; top:250px;">Tax-advantaged</span>
+
+      <!-- ====== PERSISTENT SEEDLING (carried protagonist g2-) ====== -->
+      <div class="g2-seedling-wrap" id="g2-seedling" data-layout-role="supporting" data-layout-act="continuity" data-layout-allow-overflow="true">
+        <svg class="g2-seedling-svg" viewBox="0 0 220 280" aria-hidden="true">
+          <!-- soil mound -->
+          <path d="M 30 250 Q 110 226 190 250 L 190 268 Q 110 280 30 268 Z" fill="var(--surface-paper-3)" stroke="var(--brand-primary)" stroke-width="3" />
+          <!-- stem (grows via scaleY) -->
+          <g id="g2-seed-grow" style="transform-box: fill-box; transform-origin: 50% 100%;">
+            <path d="M 110 252 L 110 110" fill="none" stroke="var(--brand-secondary)" stroke-width="7" stroke-linecap="round" />
+            <!-- leaves -->
+            <path d="M 110 170 C 70 158, 56 124, 84 110 C 104 124, 116 150, 110 170 Z" fill="var(--brand-secondary)" />
+            <path d="M 110 150 C 150 138, 164 104, 136 90 C 116 104, 104 130, 110 150 Z" fill="var(--brand-secondary)" />
+            <!-- top bud -->
+            <circle cx="110" cy="106" r="12" fill="var(--brand-secondary)" />
+          </g>
+        </svg>
+      </div>
+
+    </div>
+
+    <script>
+      // EASE / DUR from dispatch easings.js
+      const EASE = {
+        entry: "power2.out",
+        emphasis: "power3.out",
+        exit: "power2.in",
+        drift: "sine.inOut",
+      };
+      const DUR = { snap: 0.18, med: 0.5, slow: 0.95 };
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Segment start offsets (continue run — one shared timeline)
+      const T = { scene_2: 0, scene_3: 5.312, scene_4: 11.648 };
+
+      // ---------------- initial hidden states (gsap.set, not CSS) ----------------
+      // Scene 2
+      gsap.set(["#s2-card-0", "#s2-card-1", "#s2-card-2"], { opacity: 0 });
+      gsap.set(["#s2-arrow-line", "#s2-arrow-head"], { opacity: 1 });
+      gsap.set("#s2-arrow-note", { opacity: 0, y: 10 });
+
+      // Scene 3
+      gsap.set("#s3-jar", { opacity: 0, y: 14 });
+      gsap.set("#s3-jar-label", { opacity: 0 });
+      gsap.set("#s3-jar-fill", { scaleY: 0 });
+      gsap.set("#s3-debt", { opacity: 0 });
+      gsap.set("#s3-debt-note", { opacity: 0 });
+      gsap.set(["#s3-debt-slack-l", "#s3-debt-slack-r"], { opacity: 0 });
+      gsap.set("#s3-debt-thread", { opacity: 1 });
+
+      // Scene 4
+      gsap.set("#s4-stage", { opacity: 0 });
+      gsap.set("#s4-stamp", { opacity: 0, scale: 1.18, rotation: -4 });
+
+      // Persistent seedling — visible from the start of scene 3 (carried subject)
+      // hold hidden during scene 2, fade in at scene 3
+      gsap.set("#g2-seedling", { opacity: 0, scale: 0.9 });
+
+      // Stage camera resets per segment (one macro move each)
+      gsap.set("#g2-stage", { scale: 1, x: 0, y: 0 });
+
+      // Step lockup — prebuilt numeral/eyebrow layers, crossfaded across the run
+      gsap.set(["#g2-num-2", "#g2-num-3", "#g2-eb-2", "#g2-eb-3"], { opacity: 0 });
+      gsap.set(["#g2-num-1", "#g2-eb-1"], { opacity: 0, y: 12 });
+      tl.to(["#g2-num-1", "#g2-eb-1"], { opacity: 1, y: 0, duration: DUR.med, ease: EASE.emphasis }, T.scene_2 + 0.1);
+      // -> step 02
+      tl.to(["#g2-num-1", "#g2-eb-1"], { opacity: 0, duration: DUR.med, ease: EASE.exit }, T.scene_3 - 0.35);
+      tl.to(["#g2-num-2", "#g2-eb-2"], { opacity: 1, duration: DUR.med, ease: EASE.emphasis }, T.scene_3 - 0.15);
+      // -> step 03
+      tl.to(["#g2-num-2", "#g2-eb-2"], { opacity: 0, duration: DUR.med, ease: EASE.exit }, T.scene_4 - 0.35);
+      tl.to(["#g2-num-3", "#g2-eb-3"], { opacity: 1, duration: DUR.med, ease: EASE.emphasis }, T.scene_4 - 0.15);
+
+      // ===================================================================
+      // SCENE 2 — goal cards burst + timeline arrow draw  (center-outward-expansion, svg-path-draw, sine-wave-loop)
+      // ===================================================================
+      const s2cards = [
+        document.querySelector("#s2-card-0"),
+        document.querySelector("#s2-card-1"),
+        document.querySelector("#s2-card-2"),
+      ];
+      // center-outward-expansion: cards fan from clustered center to pinned spots
+      s2cards.forEach((el, i) => {
+        const tx = Number(el.dataset.targetX);
+        const ty = Number(el.dataset.targetY);
+        tl.fromTo(
+          el,
+          { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.62, opacity: 0 },
+          { x: tx, y: ty, scale: 1, opacity: 1, duration: DUR.slow, ease: EASE.entry },
+          T.scene_2 + 0.2 + i * 0.16,
+        );
+      });
+
+      // svg-path-draw: timeline arrow draws left -> right beneath the cards
+      const s2paths = document.querySelectorAll("#s2-arrow path");
+      s2paths.forEach((p) => {
+        const len = p.getTotalLength();
+        p.style.strokeDasharray = String(len);
+        p.style.strokeDashoffset = String(len);
+      });
+      tl.to("#s2-arrow-line", { strokeDashoffset: 0, duration: DUR.slow, ease: "power2.out" }, T.scene_2 + 1.1);
+      tl.to("#s2-arrow-head", { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, T.scene_2 + 1.9);
+      tl.to("#s2-arrow-note", { opacity: 1, y: 0, duration: DUR.med, ease: EASE.entry }, T.scene_2 + 2.2);
+
+      // macro: gentle dolly-in on the whole stage across scene 2
+      tl.fromTo(
+        "#g2-stage",
+        { scale: 1.0 },
+        { scale: 1.04, duration: 5.0, ease: "power1.inOut" },
+        T.scene_2 + 0.2,
+      );
+
+      // sine-wave-loop: last-landed card (s2-card-2) breathes after it lands
+      const s2breath = { p: 0 };
+      const S2_IDLE_START = T.scene_2 + 2.0;
+      const S2_IDLE_DUR = 3.0;
+      tl.to(
+        s2breath,
+        {
+          p: Math.PI * 2 * 1.2,
+          duration: S2_IDLE_DUR,
+          ease: "none",
+          onUpdate: () => {
+            const el = document.querySelector("#s2-card-2");
+            const y = Math.sin(s2breath.p) * 3;
+            const sc = 1 + Math.sin(s2breath.p) * 0.01;
+            el.style.transform = `translate(-50%, -50%) translate(540px, ${0 + y}px) scale(${sc})`;
+          },
+        },
+        S2_IDLE_START,
+      );
+      // hide scene-2 cluster as the run advances into scene 3 (internal continuity, not a wrapper transition)
+      tl.to(["#s2-card-0", "#s2-card-1", "#s2-card-2", "#s2-arrow", "#s2-arrow-note"], { opacity: 0, duration: DUR.med, ease: EASE.exit }, T.scene_3 - 0.45);
+
+      // ===================================================================
+      // SCENE 3 — jar fills + debt thread cut  (stat-bars-and-fills, svg-icon-enrichment, sine-wave-loop)
+      // ===================================================================
+      // reset stage camera for the slow push toward the jar
+      tl.set("#g2-stage", { scale: 1.0, x: 0, y: 0 }, T.scene_3 - 0.2);
+
+      tl.to("#s3-jar", { opacity: 1, y: 0, duration: DUR.med, ease: EASE.entry }, T.scene_3 + 0.1);
+      tl.to("#s3-jar-label", { opacity: 1, duration: DUR.med, ease: EASE.entry }, T.scene_3 + 0.2);
+      // stat-bars-and-fills: jar fills with green to the marked safe line
+      tl.to("#s3-jar-fill", { scaleY: 0.84, duration: 1.3, ease: "power2.out" }, T.scene_3 + 0.4);
+
+      // seedling enters here — established as the carried subject for the run
+      tl.to("#g2-seedling", { opacity: 1, scale: 1.0, duration: DUR.med, ease: EASE.entry }, T.scene_3 + 0.3);
+
+      // svg-icon-enrichment: debt thread cut — blades close, thread goes slack
+      tl.to("#s3-debt", { opacity: 1, duration: DUR.med, ease: EASE.entry }, T.scene_3 + 0.4);
+      tl.to("#s3-debt-note", { opacity: 1, duration: DUR.med, ease: EASE.entry }, T.scene_3 + 0.6);
+      // blades oscillate closed (scissor cut)
+      const s3cut = { p: 0 };
+      tl.to(
+        s3cut,
+        {
+          p: 1,
+          duration: 0.5,
+          ease: "power2.inOut",
+          onUpdate: () => {
+            const a = document.getElementById("s3-blade-a");
+            const b = document.getElementById("s3-blade-b");
+            const close = s3cut.p * 8; // degrees toward closed
+            a.setAttribute("transform", `rotate(${close} 232 60)`);
+            b.setAttribute("transform", `rotate(${-close} 288 60)`);
+          },
+        },
+        T.scene_3 + 1.4,
+      );
+      // at the cut moment, taut thread hides and slack ends drop
+      tl.to("#s3-debt-thread", { opacity: 0, duration: 0.12, ease: "none" }, T.scene_3 + 1.75);
+      tl.to(["#s3-debt-slack-l", "#s3-debt-slack-r"], { opacity: 1, duration: 0.28, ease: EASE.entry }, T.scene_3 + 1.78);
+
+      // seedling grows ONE notch taller as the jar tops out (scaleY on the grow group)
+      tl.fromTo(
+        "#g2-seed-grow",
+        { scaleY: 0.82 },
+        { scaleY: 1.0, duration: 0.9, ease: EASE.emphasis },
+        T.scene_3 + 1.6,
+      );
+
+      // macro: slow push toward the jar across scene 3
+      tl.to("#g2-stage", { scale: 1.05, x: 90, duration: 5.6, ease: "power1.inOut" }, T.scene_3 + 0.2);
+
+      // boundary into scene 4: jar + thread settle to quiet supporting state lower-left, seedling holds
+      tl.to("#s3-jar", { scale: 0.62, x: -360, y: 210, opacity: 0.55, duration: DUR.slow, ease: EASE.exit, transformOrigin: "50% 50%" }, T.scene_4 - 0.7);
+      tl.to(["#s3-jar-label", "#s3-debt-note"], { opacity: 0, duration: DUR.med, ease: EASE.exit }, T.scene_4 - 0.7);
+      tl.to("#s3-debt", { scale: 0.5, x: -560, y: 230, opacity: 0.45, duration: DUR.slow, ease: EASE.exit, transformOrigin: "50% 50%" }, T.scene_4 - 0.7);
+
+      // ===================================================================
+      // SCENE 4 — account folders fan in + stamp press  (orbit-3d-entry, card-morph-anchor, sine-wave-loop)
+      // ===================================================================
+      tl.set("#g2-stage", { scale: 1.0, x: 0, y: 0 }, T.scene_4 - 0.2);
+      tl.to("#s4-stage", { opacity: 1, duration: 0.2, ease: "none" }, T.scene_4);
+
+      // orbit-3d-entry (entry phase only — flip in from 3D to their fanned spots)
+      const s4folders = [
+        document.querySelector("#s4-folder-0"),
+        document.querySelector("#s4-folder-1"),
+        document.querySelector("#s4-folder-2"),
+      ];
+      s4folders.forEach((el, i) => {
+        const tx = Number(el.dataset.targetX);
+        const ty = Number(el.dataset.targetY);
+        gsap.set(el, {
+          xPercent: -50, yPercent: -50,
+          x: tx, y: ty,
+          rotateX: 80, rotateY: -40, z: -260, scale: 0.4, opacity: 0,
+        });
+        tl.to(
+          el,
+          { rotateX: 0, rotateY: 0, z: 0, scale: 1, opacity: 1, duration: 0.7, ease: "power3.out" },
+          T.scene_4 + 0.2 + i * 0.14,
+        );
+      });
+
+      // card-morph-anchor: TAX-ADVANTAGED stamp ink-presses onto the first two folders (anchors the seat)
+      // stamp slam: scale 1.18 -> 1 at -4deg (never counter-rotate to 0)
+      tl.to(
+        "#s4-stamp",
+        { opacity: 1, scale: 1.0, rotation: -4, duration: 0.4, ease: EASE.emphasis },
+        T.scene_4 + 1.3,
+      );
+
+      // sine-wave-loop: seedling is the single live element — breathes through scene 4
+      const s4breath = { p: 0 };
+      const S4_IDLE_START = T.scene_4 + 0.8;
+      const S4_IDLE_DUR = 18.581 - S4_IDLE_START - 0.05;
+      tl.to(
+        s4breath,
+        {
+          p: Math.PI * 2 * 2.0,
+          duration: S4_IDLE_DUR,
+          ease: "none",
+          onUpdate: () => {
+            const el = document.querySelector("#g2-seedling");
+            const t = s4breath.p / (Math.PI * 2 * 2.0);
+            const FADE = 0.2;
+            const env = t < 1 - FADE ? 1 : (1 - t) / FADE;
+            const y = Math.sin(s4breath.p) * 3 * env;
+            const sc = 1 + Math.sin(s4breath.p) * 0.012 * env;
+            el.style.transform = `translateY(${y}px) scale(${sc})`;
+          },
+        },
+        S4_IDLE_START,
+      );
+
+      // macro: slow drift across the folder fan
+      tl.to("#g2-stage", { x: -70, duration: 6.4, ease: "power1.inOut" }, T.scene_4 + 0.2);
+
+      window.__timelines["group_w2"] = tl;
+    </script>
+  </div>
+</template>

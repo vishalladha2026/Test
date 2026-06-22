@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Pin &amp; Paper — Captions</title>
+    <!--
+      Pin & Paper caption skin (preset-local source — second caption source).
+
+      A pre-baked, brand-token-strict caption sub-composition. emit-chunks copies this to
+      design-system/chunks/caption-skin.html for the chosen preset; build-captions-html.mjs
+      then fills three reserved holes and writes compositions/captions.html:
+        - the empty GROUPS array       → engine's scene-aware, non-overlapping word groups
+        - the 0 DURATION + data-duration → real total_duration_s
+        - the empty brand-tokens style → the project's tokens.css
+      (the filler asserts each hole appears exactly once, so this note avoids the literals)
+
+      Contract (so ONE generic fill works for every preset's skin — no per-skin transform):
+        · root carries data-composition-id="captions"; timeline registers window.__timelines["captions"]
+        · canonical hooks .caption-group / .caption-word (+ states .is-active / .is-spoken)
+        · all colors are var(--*) / color-mix over tokens — brand-strict by construction
+        · no <video>, no Google Fonts, no placeholder transcript, no window.<native>() calls
+        · state changes use gsap.set({className}) (applied on seek) — NOT .call callbacks
+          (callbacks don't fire on the engine's frame-by-frame seek)
+
+      Visual: cream paper card pinned to the page — 1.5px hairline ink border, 4px micro-radius,
+      hard ink-blue zero-blur offset shadow, slight askew tilt. The current word wears a cinnabar-red
+      rubber-stamp outline; spoken words settle to solid ink. The field-notebook counterpart to the
+      registry default caption-pill-karaoke (soft rounded SaaS pill).
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+    <!-- build-captions-html.mjs injects the project's tokens.css here -->
+<style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        margin: 0;
+        overflow: hidden;
+        background: transparent;
+      }
+      #captions-root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: transparent;
+        pointer-events: none;
+      }
+
+      /* pin-and-paper · captions · cream paper card pinned to the page — hairline ink border,
+         micro-radius, hard ink-blue zero-blur offset shadow, slight askew tilt, cinnabar-red
+         rubber-stamp outline on the current word */
+      .caption-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 20;
+        pointer-events: none;
+      }
+      .caption-stage {
+        position: absolute;
+        left: 50%;
+        bottom: 36px;
+        transform: translateX(-50%);
+        width: 1600px;
+        height: 210px;
+      }
+      .caption-group {
+        /* every group is absolutely positioned over the SAME band — exactly one is shown
+           at a time via opacity. Must be absolute: if groups stay in-flow, N groups lay
+           out side-by-side (opacity:0 hides but still occupies space). */
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+      }
+
+      /* THE pinned paper card — cream fill, 1.5px hairline ink border, 4px micro-radius,
+         hard ink-blue offset shadow (zero blur), settled slightly askew on the page */
+      .caption-pill {
+        max-width: 1600px;
+        padding: 22px 44px 26px;
+        background: var(--surface-cream);
+        border: var(--border-hairline);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-pin-standard);
+        transform: rotate(var(--tilt-card-askew));
+      }
+      .caption-line {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.16em 0.34em;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(40px, 4.4vw, 56px);
+        line-height: 1.24;
+        letter-spacing: -0.03em;
+      }
+
+      /* upcoming — faint ink-blue, no stamp */
+      .caption-word {
+        display: inline-block;
+        padding: 0 0.04em;
+        color: color-mix(in srgb, var(--brand-primary) 38%, var(--surface-cream));
+      }
+      /* current word — THE cinnabar-red rubber-stamp outline (box-shadow ring = stamp w/o
+         layout shift), ink-blue glyphs reading over the cream page */
+      .caption-word.is-active {
+        color: var(--brand-primary);
+        background: color-mix(in srgb, var(--brand-accent) 12%, var(--surface-cream));
+        box-shadow:
+          0 0 0 0.06em var(--brand-accent),
+          0 0 0 0.12em color-mix(in srgb, var(--brand-accent) 30%, transparent);
+      }
+      /* already spoken — solid ink-blue, stamp cleared */
+      .caption-word.is-spoken {
+        color: var(--brand-primary);
+        background: transparent;
+        box-shadow: none;
+      }
+
+      /* optional per-word accents (dormant until a word-classer tags them) */
+      .caption-word.cap-brand {
+        color: var(--brand-primary);
+        font-style: italic;
+      }
+      .caption-word.cap-brand.is-active {
+        color: var(--brand-primary);
+        background: color-mix(in srgb, var(--brand-accent) 14%, var(--surface-cream));
+        box-shadow:
+          0 0 0 0.06em var(--brand-accent),
+          0 0 0 0.12em color-mix(in srgb, var(--brand-accent) 30%, transparent);
+      }
+      .caption-word.cap-num {
+        color: color-mix(in srgb, var(--brand-primary) 72%, var(--surface-cream));
+      }
+      /* the cinnabar-red stamp underline — the system's hand-drawn emphasis, in red */
+      .caption-word.cap-cta {
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-decoration-color: var(--brand-accent);
+        text-underline-offset: 0.08em;
+      }
+
+      @media (max-aspect-ratio: 9/16) {
+        .caption-stage {
+          bottom: 100px;
+          width: 92%;
+        }
+        .caption-line {
+          font-size: clamp(34px, 5.4vw, 46px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="captions-root"
+      data-composition-id="captions"
+      data-timeline-locked
+      data-start="0"
+      data-duration="45.525"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div class="caption-layer" aria-hidden="true">
+        <div id="caption-stage" class="caption-stage"></div>
+      </div>
+    </div>
+
+    <script>
+      // build-captions-html.mjs injects the engine's scene-aware groups + real duration.
+      var GROUPS = [{"start":0.05,"end":0.495,"words":[{"text":"Want","start":0.05,"end":0.346},{"text":"to","start":0.346,"end":0.495}]},{"start":0.495,"end":2.051,"words":[{"text":"start","start":0.495,"end":0.865},{"text":"investing","start":0.865,"end":1.532},{"text":"but","start":1.532,"end":1.755},{"text":"don't","start":1.755,"end":2.051}]},{"start":2.051,"end":2.644,"words":[{"text":"know","start":2.051,"end":2.348},{"text":"step","start":2.348,"end":2.644}]},{"start":2.644,"end":2.866,"words":[{"text":"one?","start":2.644,"end":2.866}]},{"start":2.866,"end":3.385,"words":[{"text":"Here","start":2.866,"end":3.163},{"text":"are","start":3.163,"end":3.385}]},{"start":3.385,"end":4.052,"words":[{"text":"five","start":3.385,"end":3.682},{"text":"moves","start":3.682,"end":4.052}]},{"start":4.052,"end":4.691,"words":[{"text":"to","start":4.052,"end":4.2},{"text":"begin.","start":4.2,"end":4.571}]},{"start":4.701,"end":5.112,"words":[{"text":"First,","start":4.701,"end":5.112}]},{"start":5.112,"end":5.77,"words":[{"text":"name","start":5.112,"end":5.441},{"text":"your","start":5.441,"end":5.77}]},{"start":5.77,"end":6.099,"words":[{"text":"goal.","start":5.77,"end":6.099}]},{"start":6.099,"end":6.922,"words":[{"text":"Retirement,","start":6.099,"end":6.922}]},{"start":6.922,"end":7.415,"words":[{"text":"a","start":6.922,"end":7.004},{"text":"house,","start":7.004,"end":7.415}]},{"start":7.415,"end":8.649,"words":[{"text":"freedom","start":7.415,"end":7.991},{"text":"your","start":8.073,"end":8.402},{"text":"why","start":8.402,"end":8.649}]},{"start":8.649,"end":10.003,"words":[{"text":"sets","start":8.649,"end":8.978},{"text":"the","start":8.978,"end":9.225},{"text":"timeline.","start":9.225,"end":9.883}]},{"start":10.013,"end":10.358,"words":[{"text":"Next,","start":10.013,"end":10.358}]},{"start":10.358,"end":11.478,"words":[{"text":"secure","start":10.358,"end":10.875},{"text":"the","start":10.875,"end":11.134},{"text":"base:","start":11.134,"end":11.478}]},{"start":11.478,"end":12.771,"words":[{"text":"an","start":11.478,"end":11.651},{"text":"emergency","start":11.651,"end":12.426},{"text":"fund","start":12.426,"end":12.771}]},{"start":12.771,"end":14.237,"words":[{"text":"and","start":12.771,"end":13.03},{"text":"no","start":13.03,"end":13.202},{"text":"high-interest","start":13.202,"end":14.237}]},{"start":14.237,"end":14.581,"words":[{"text":"debt.","start":14.237,"end":14.581}]},{"start":14.581,"end":16.339,"words":[{"text":"Invest","start":14.581,"end":15.098},{"text":"from","start":15.098,"end":15.443},{"text":"stability.","start":15.443,"end":16.219}]},{"start":16.349,"end":17.38,"words":[{"text":"Then","start":16.349,"end":16.761},{"text":"open","start":16.761,"end":17.174},{"text":"an","start":17.174,"end":17.38}]},{"start":17.38,"end":18.72,"words":[{"text":"account","start":17.38,"end":18.101},{"text":"a","start":18.204,"end":18.307},{"text":"401(k),","start":18.307,"end":18.72}]},{"start":18.72,"end":19.029,"words":[{"text":"IRA,","start":18.72,"end":19.029}]},{"start":19.029,"end":20.163,"words":[{"text":"or","start":19.029,"end":19.235},{"text":"brokerage.","start":19.235,"end":20.163}]},{"start":20.163,"end":22.327,"words":[{"text":"The","start":20.163,"end":20.472},{"text":"wrapper","start":20.472,"end":21.194},{"text":"decides","start":21.194,"end":21.915},{"text":"your","start":21.915,"end":22.327}]},{"start":22.327,"end":23.272,"words":[{"text":"tax","start":22.327,"end":22.637},{"text":"break.","start":22.637,"end":23.152}]},{"start":23.282,"end":24.027,"words":[{"text":"Now","start":23.282,"end":23.53},{"text":"invest.","start":23.53,"end":24.027}]},{"start":24.027,"end":25.435,"words":[{"text":"Low-cost","start":24.027,"end":24.607},{"text":"index","start":24.607,"end":25.021},{"text":"funds","start":25.021,"end":25.435}]},{"start":25.435,"end":26.678,"words":[{"text":"spread","start":25.435,"end":25.932},{"text":"your","start":25.932,"end":26.264},{"text":"money","start":26.264,"end":26.678}]},{"start":26.678,"end":27.837,"words":[{"text":"across","start":26.678,"end":27.175},{"text":"the","start":27.175,"end":27.423},{"text":"whole","start":27.423,"end":27.837}]},{"start":27.837,"end":28.5,"words":[{"text":"market","start":27.837,"end":28.334},{"text":"in","start":28.334,"end":28.5}]},{"start":28.5,"end":29.117,"words":[{"text":"one","start":28.5,"end":28.749},{"text":"buy.","start":28.749,"end":28.997}]},{"start":29.127,"end":29.458,"words":[{"text":"Last,","start":29.127,"end":29.458}]},{"start":29.458,"end":30.284,"words":[{"text":"automate","start":29.458,"end":30.119},{"text":"it.","start":30.119,"end":30.284}]},{"start":30.284,"end":30.862,"words":[{"text":"Invest","start":30.284,"end":30.78},{"text":"a","start":30.78,"end":30.862}]},{"start":30.862,"end":32.185,"words":[{"text":"set","start":30.862,"end":31.11},{"text":"amount","start":31.11,"end":31.606},{"text":"monthly","start":31.606,"end":32.185}]},{"start":32.185,"end":32.681,"words":[{"text":"and","start":32.185,"end":32.433},{"text":"let","start":32.433,"end":32.681}]},{"start":32.681,"end":33.176,"words":[{"text":"time","start":32.681,"end":33.011},{"text":"do","start":33.011,"end":33.176}]},{"start":33.176,"end":34.536,"words":[{"text":"the","start":33.176,"end":33.424},{"text":"heavy","start":33.424,"end":33.838},{"text":"lifting.","start":33.838,"end":34.416}]},{"start":34.546,"end":34.892,"words":[{"text":"Goal,","start":34.546,"end":34.892}]},{"start":34.892,"end":35.672,"words":[{"text":"safety","start":34.892,"end":35.412},{"text":"net,","start":35.412,"end":35.672}]},{"start":35.672,"end":36.278,"words":[{"text":"account,","start":35.672,"end":36.278}]},{"start":36.278,"end":37.144,"words":[{"text":"index","start":36.278,"end":36.711},{"text":"funds,","start":36.711,"end":37.144}]},{"start":37.144,"end":37.836,"words":[{"text":"automate.","start":37.144,"end":37.836}]},{"start":37.836,"end":39.135,"words":[{"text":"Five","start":37.836,"end":38.183},{"text":"steps","start":38.183,"end":38.616},{"text":"that's","start":38.702,"end":39.135}]},{"start":39.135,"end":40.381,"words":[{"text":"the","start":39.135,"end":39.395},{"text":"whole","start":39.395,"end":39.828},{"text":"start.","start":39.828,"end":40.261}]},{"start":40.391,"end":40.981,"words":[{"text":"The","start":40.391,"end":40.644},{"text":"best","start":40.644,"end":40.981}]},{"start":40.981,"end":41.486,"words":[{"text":"time","start":40.981,"end":41.318},{"text":"to","start":41.318,"end":41.486}]},{"start":41.486,"end":42.918,"words":[{"text":"start","start":41.486,"end":41.907},{"text":"was","start":41.907,"end":42.16},{"text":"yesterday.","start":42.16,"end":42.918}]},{"start":42.918,"end":44.013,"words":[{"text":"The","start":42.918,"end":43.171},{"text":"second","start":43.171,"end":43.676},{"text":"best","start":43.676,"end":44.013}]},{"start":44.013,"end":44.603,"words":[{"text":"is","start":44.013,"end":44.182},{"text":"today.","start":44.182,"end":44.603}]},{"start":44.603,"end":45.565,"words":[{"text":"Start","start":44.603,"end":45.024},{"text":"today.","start":45.024,"end":45.445}]}];
+      var DURATION = 45.525;
+
+      (function () {
+        var stage = document.getElementById("caption-stage");
+
+        // build DOM: one .caption-group per group, .caption-word per word
+        GROUPS.forEach(function (group, g) {
+          var groupEl = document.createElement("div");
+          groupEl.className = "caption-group";
+          groupEl.id = "caption-group-" + g;
+          var pill = document.createElement("div");
+          pill.className = "caption-pill";
+          var line = document.createElement("div");
+          line.className = "caption-line";
+          (group.words || []).forEach(function (w, i) {
+            var span = document.createElement("span");
+            span.className = "caption-word";
+            span.id = "caption-word-" + g + "-" + i;
+            span.textContent = String(w.text).toUpperCase();
+            line.appendChild(span);
+          });
+          pill.appendChild(line);
+          groupEl.appendChild(pill);
+          stage.appendChild(groupEl);
+        });
+
+        window.__timelines = window.__timelines || {};
+        var tl = gsap.timeline({ paused: true });
+
+        GROUPS.forEach(function (group, g) {
+          var groupEl = document.getElementById("caption-group-" + g);
+          var words = group.words || [];
+          var next = GROUPS[g + 1];
+          var isLast = g === GROUPS.length - 1;
+          var start = Math.max(0, Number(group.start));
+          var end = isLast ? DURATION : Math.min(Number(next.start), Number(group.end) + 0.3);
+          if (end <= start) end = start + 0.01;
+
+          // group on/off — exactly one group visible at a time
+          tl.set(groupEl, { opacity: 1 }, start);
+          tl.set(groupEl, { opacity: 0 }, end);
+
+          // 3-state karaoke via className SETS — seek-safe (gsap.set applies on the
+          // engine's frame-by-frame seek; .call callbacks would NOT fire).
+          words.forEach(function (w, i) {
+            var el = document.getElementById("caption-word-" + g + "-" + i);
+            var at = Math.max(start, Number(w.start));
+            tl.set(el, { className: "caption-word" }, start); // upcoming (also resets on reverse-seek)
+            tl.set(el, { className: "caption-word is-active" }, at); // current
+            tl.fromTo(el, { scale: 0.9 }, { scale: 1, duration: 0.14, ease: "power3.out" }, at);
+            if (i + 1 < words.length) {
+              var nextAt = Math.max(start, Number(words[i + 1].start));
+              tl.set(el, { className: "caption-word is-spoken" }, nextAt); // demote when next stamps
+            }
+          });
+          if (words.length) {
+            var lastEl = document.getElementById("caption-word-" + g + "-" + (words.length - 1));
+            var lastSpoken = Math.min(end, Number(words[words.length - 1].end) + 0.1);
+            tl.set(lastEl, { className: "caption-word is-spoken" }, lastSpoken);
+          }
+        });
+
+        // full-span anchor so the sub-comp timeline spans the whole video
+        tl.to({}, { duration: DURATION }, 0);
+        window.__timelines["captions"] = tl;
+      })();
+    </script>
+  </body>
+</html>
