@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="public/vendor/gsap.min.js"></script>
     <style>
+      /* Vendored web fonts (offline — fetched from npm @fontsource at build time) */
+      @font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 400; font-display: block; src: url('public/fonts/space-grotesk-latin-400-normal.woff2') format('woff2'); }
+      @font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 500; font-display: block; src: url('public/fonts/space-grotesk-latin-500-normal.woff2') format('woff2'); }
+      @font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 700; font-display: block; src: url('public/fonts/space-grotesk-latin-700-normal.woff2') format('woff2'); }
+      @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; font-display: block; src: url('public/fonts/dm-mono-latin-400-normal.woff2') format('woff2'); }
+      @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 500; font-display: block; src: url('public/fonts/dm-mono-latin-500-normal.woff2') format('woff2'); }
+      @font-face { font-family: 'Caveat'; font-style: normal; font-weight: 400; font-display: block; src: url('public/fonts/caveat-latin-400-normal.woff2') format('woff2'); }
+      @font-face { font-family: 'Caveat'; font-style: normal; font-weight: 700; font-display: block; src: url('public/fonts/caveat-latin-700-normal.woff2') format('woff2'); }
       * {
         margin: 0;
         padding: 0;
@@ -18,13 +26,72 @@
         overflow: hidden;
         background: #000;
       }
-      body {
-        font-family: "Inter", sans-serif;
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
       }
-      code,
-      pre,
-      .monospace {
-        font-family: "JetBrains Mono", monospace;
+      /* Sub-comp slots stretch to fill the root */
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* Brand design tokens (from design-system/chunks/tokens.css) */
+      :root {
+        --brand-primary:   #E0A23B;
+        --brand-secondary: #2E7D5B;
+        --brand-tertiary:  #C8694B;
+        --brand-accent:    #C8694B;
+        --brand-costume:   #E0A23B;
+        --ink:             #1E1B16;
+        --canvas:          #F4EFE6;
+        --brand-gradient:  linear-gradient(135deg, #E0A23B 0%, #2E7D5B 50%, #C8694B 100%);
+        --deco-1:          #F7CB46;
+        --deco-2:          #99E885;
+        --deco-3:          #C0F7FE;
+        --deco-4:          #FE90E8;
+        --font-display:    'Space Grotesk', system-ui, sans-serif;
+        --font-body:       'Space Grotesk', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        --font-mono:       'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+        --font-script:     'Caveat', 'Segoe Script', cursive;
+        --anchor-paper-yellow: #F4EFE6; /* warm off-white paper — the page (brief palette) */
+        --anchor-cream: #FBF6EC; /* ivory — the cards (kept slightly lighter than the page) */
+        --surface-paper: color-mix(in srgb, var(--brand-primary) 6%, var(--anchor-paper-yellow));
+        --surface-paper-2: color-mix(
+        in srgb,
+        var(--brand-primary) 4%,
+        color-mix(in srgb, var(--anchor-paper-yellow) 70%, white)
+      );
+        --surface-paper-3: color-mix(
+        in srgb,
+        var(--brand-primary) 8%,
+        color-mix(in srgb, var(--anchor-paper-yellow) 85%, black 8%)
+      );
+        --surface-cream: color-mix(in srgb, var(--brand-primary) 4%, var(--anchor-cream));
+        --shadow-pin-compact: 4px 5px 0 0 var(--brand-primary);
+        --shadow-pin-standard: 5px 6px 0 0 var(--brand-primary);
+        --shadow-pin-hero: 8px 9px 0 0 var(--brand-primary);
+        --border-hairline: 1.5px solid var(--brand-primary);
+        --border-dashed: 1.5px dashed color-mix(in srgb, var(--brand-primary) 45%, transparent);
+        --border-stamp: 3px solid var(--brand-accent);
+        --radius-card: 4px;
+        --radius-pill: 999px;
+        --pad-edge: 64px;
+        --pad-top: 110px;
+        --pad-bottom: 90px;
+        --card-pad: 28px;
+        --card-pad-lg: 36px 28px 28px;
+        --gap-card-sm: 22px;
+        --gap-card-md: 28px;
+        --gap-card-lg: 32px;
+        --tilt-pin: -10deg;
+        --tilt-pin-alt: 14deg;
+        --tilt-card-askew: 0.9deg;
+        --tilt-scribble: -2deg;
+        --tilt-stamp: -4deg;
+        --paper-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.45  0 0 0 0 0.2  0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
       }
     </style>
   </head>
@@ -33,27 +100,197 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="10"
+      data-duration="45.525"
       data-width="1920"
       data-height="1080"
     >
-      
-      
+      <!-- HF-VISUAL-CLIP scene_1 (scene_1) (0 → 4.651) -->
+      <div
+        id="el-scene_1"
+        data-composition-id="scene_1"
+        data-composition-src="compositions/scene_1.html"
+        data-start="0"
+        data-duration="5.251"
+        data-track-index="0"
+        data-width="1920"
+        data-height="1080"
+      ></div>
 
-      <!--
-        Add your clips here. Example:
-        <div id="title" class="clip" data-start="0" data-duration="5" data-track-index="1"
-             style="font-size: 64px; color: #fff; padding: 40px">
-          Hello World
-        </div>
-      -->
+      <!-- HF-VISUAL-CLIP group_w2 (scene_2, scene_3, scene_4) (4.651 → 23.232) -->
+      <div
+        id="el-group_w2"
+        data-composition-id="group_w2"
+        data-composition-src="compositions/group_w2.html"
+        data-start="4.651"
+        data-duration="18.981"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- HF-VISUAL-CLIP group_w3 (scene_5, scene_6) (23.232 → 34.496) -->
+      <div
+        id="el-group_w3"
+        data-composition-id="group_w3"
+        data-composition-src="compositions/group_w3.html"
+        data-start="23.232"
+        data-duration="11.764"
+        data-track-index="0"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- HF-VISUAL-CLIP scene_7 (scene_7) (34.496 → 40.341) -->
+      <div
+        id="el-scene_7"
+        data-composition-id="scene_7"
+        data-composition-src="compositions/scene_7.html"
+        data-start="34.496"
+        data-duration="6.345"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- HF-VISUAL-CLIP scene_8 (scene_8) (40.341 → 45.525) -->
+      <div
+        id="el-scene_8"
+        data-composition-id="scene_8"
+        data-composition-src="compositions/scene_8.html"
+        data-start="40.341"
+        data-duration="5.184"
+        data-track-index="0"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- voice scene_1 (0 → 4.651) -->
+      <audio
+        id="el-scene_1-voice"
+        class="clip"
+        src="assets/voice/scene_1.wav"
+        data-start="0"
+        data-duration="4.651"
+        data-track-index="10"
+      ></audio>
+
+      <!-- voice scene_2 (4.651 → 9.963) -->
+      <audio
+        id="el-scene_2-voice"
+        class="clip"
+        src="assets/voice/scene_2.wav"
+        data-start="4.651"
+        data-duration="5.311999999999999"
+        data-track-index="10"
+      ></audio>
+
+      <!-- voice scene_3 (9.963 → 16.299) -->
+      <audio
+        id="el-scene_3-voice"
+        class="clip"
+        src="assets/voice/scene_3.wav"
+        data-start="9.963"
+        data-duration="6.336"
+        data-track-index="10"
+      ></audio>
+
+      <!-- voice scene_4 (16.299 → 23.232) -->
+      <audio
+        id="el-scene_4-voice"
+        class="clip"
+        src="assets/voice/scene_4.wav"
+        data-start="16.299"
+        data-duration="6.933"
+        data-track-index="10"
+      ></audio>
+
+      <!-- voice scene_5 (23.232 → 29.077) -->
+      <audio
+        id="el-scene_5-voice"
+        class="clip"
+        src="assets/voice/scene_5.wav"
+        data-start="23.232"
+        data-duration="5.845000000000002"
+        data-track-index="10"
+      ></audio>
+
+      <!-- voice scene_6 (29.077 → 34.496) -->
+      <audio
+        id="el-scene_6-voice"
+        class="clip"
+        src="assets/voice/scene_6.wav"
+        data-start="29.077"
+        data-duration="5.4190000000000005"
+        data-track-index="10"
+      ></audio>
+
+      <!-- voice scene_7 (34.496 → 40.341) -->
+      <audio
+        id="el-scene_7-voice"
+        class="clip"
+        src="assets/voice/scene_7.wav"
+        data-start="34.496"
+        data-duration="5.844999999999999"
+        data-track-index="10"
+      ></audio>
+
+      <!-- voice scene_8 (40.341 → 45.525) -->
+      <audio
+        id="el-scene_8-voice"
+        class="clip"
+        src="assets/voice/scene_8.wav"
+        data-start="40.341"
+        data-duration="5.184"
+        data-track-index="10"
+      ></audio>
+
+      <!-- captions -->
+      <div
+        id="el-captions"
+        data-composition-id="captions"
+        data-composition-src="compositions/captions.html"
+        data-start="0"
+        data-duration="45.525"
+        data-track-index="12"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- SFX -->
+      <audio
+        id="el-sfx-0"
+        class="clip"
+        src="assets/sfx/ping.mp3"
+        data-start="28.132"
+        data-duration="1.32"
+        data-track-index="20"
+        data-volume="0.3"
+      ></audio>
+      <audio
+        id="el-sfx-1"
+        class="clip"
+        src="assets/sfx/chime.mp3"
+        data-start="42.941"
+        data-duration="2.5"
+        data-track-index="21"
+        data-volume="0.3"
+      ></audio>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
-      const tl = gsap.timeline({ paused: true });
-      // Example: tl.from("#title", { opacity: 0, y: -50, duration: 1 }, 0);
-      window.__timelines["main"] = tl;
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // ── scene transitions (injected by inject-transitions.mjs) ──
+      (function () { var tl = window.__timelines["main"];
+        tl.to("#el-scene_1", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 4.651);
+        tl.fromTo("#el-group_w2", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 4.651);
+        tl.to("#el-group_w2", { scale: 2.5, opacity: 0, filter: "blur(8px)", duration: 0.4, ease: "power3.in" }, 23.232);
+        tl.fromTo("#el-group_w3", { scale: 0.5, opacity: 0, filter: "blur(8px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "power3.out" }, 23.232);
+        tl.to("#el-group_w3", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 34.496);
+        tl.fromTo("#el-scene_7", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 34.496);
+        tl.to("#el-scene_7", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 40.341);
+        tl.fromTo("#el-scene_8", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 40.341);
+      })();
     </script>
   </body>
 </html>

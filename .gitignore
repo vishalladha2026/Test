@@ -1,3 +1,7 @@
 node_modules/
 .dispatch/
 *.log
+snapshots/
+finalize_brief.json
+.npx-cache/
+videos/*/renders/work-*/
